@@ -73,6 +73,7 @@ namespace Snake
 
                 Console.SetCursorPosition(snakeXPosition, snakeYPosition);
                 Console.Write("*");
+                Console.Clear();
             }
         }
     }
