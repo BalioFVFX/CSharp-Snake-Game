@@ -46,7 +46,11 @@ namespace Snake
                     lastKey = currentKey;
                 }
                 
-                
+                if(snakeYPosition < 0 || snakeXPosition < 0)
+                {
+                    Console.SetCursorPosition(0, 0);
+                    break;
+                }
                 Console.SetCursorPosition(snakeXPosition, snakeYPosition);
                 Console.Write("*");
                 Thread.Sleep(500);
@@ -75,6 +79,8 @@ namespace Snake
                 Console.Write("*");
                 Console.Clear();
             }
+
+            Console.WriteLine("GAME OVER!");
         }
     }
 }
