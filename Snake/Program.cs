@@ -11,33 +11,68 @@ namespace Snake
 
             int snakeXPosition = 0;
             int snakeYPosition = 0;
+            ConsoleKey lastKey = ConsoleKey.Delete;
 
             while (true)
             {
-                Console.SetCursorPosition(snakeXPosition, snakeYPosition);
-                Console.Write("*");
-                ConsoleKey pressedKey = Console.ReadKey().Key;
-                if(pressedKey== ConsoleKey.DownArrow)
+                ConsoleKey currentKey = ConsoleKey.Delete;
+
+                if (Console.KeyAvailable)
+                {
+                    currentKey = Console.ReadKey().Key;
+                }
+
+
+                
+                
+                if(currentKey == ConsoleKey.DownArrow)
                 {
                     snakeYPosition++;
-                    continue;
+                    lastKey = currentKey;
                 }
-                if(pressedKey == ConsoleKey.UpArrow && snakeYPosition != 0)
+                else if (currentKey == ConsoleKey.UpArrow)
                 {
                     snakeYPosition--;
-                    continue;
+                    lastKey = currentKey;
                 }
-                if(pressedKey == ConsoleKey.RightArrow)
-                {
-                    snakeXPosition++;
-                    continue;
-                }
-                if (pressedKey == ConsoleKey.LeftArrow && snakeXPosition != 0)
+                else if (currentKey == ConsoleKey.LeftArrow)
                 {
                     snakeXPosition--;
-                    continue;
+                    lastKey = currentKey;
                 }
-               
+                else if (currentKey == ConsoleKey.RightArrow)
+                {
+                    snakeXPosition++;
+                    lastKey = currentKey;
+                }
+                
+                
+                Console.SetCursorPosition(snakeXPosition, snakeYPosition);
+                Console.Write("*");
+                Thread.Sleep(500);
+
+                if (!Console.KeyAvailable)
+                {
+                    if (lastKey == ConsoleKey.DownArrow)
+                    {
+                        snakeYPosition++;
+                    }
+                    else if (lastKey == ConsoleKey.UpArrow)
+                    {
+                        snakeYPosition--;
+                    }
+                    else if (lastKey == ConsoleKey.LeftArrow)
+                    {
+                        snakeXPosition--;
+                    }
+                    else if (lastKey == ConsoleKey.RightArrow)
+                    {
+                        snakeXPosition++;
+                    }
+                }
+
+                Console.SetCursorPosition(snakeXPosition, snakeYPosition);
+                Console.Write("*");
             }
         }
     }
