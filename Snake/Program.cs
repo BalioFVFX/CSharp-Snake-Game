@@ -26,11 +26,11 @@ namespace Snake
                     {
                         case 1:
                             Console.Clear();
-                            DrawArea();
+                            DrawArea(level);
                             break;
                         case 2:
                             Console.Clear();
-                            DrawArea();
+                            DrawArea(level);
                             break;
                         case 3:
                             return;
@@ -45,9 +45,6 @@ namespace Snake
             }
             List<Snake> snakeTail = InitializeSnake(5);
             
-            DrawArea();
-
-
             ConsoleKey currentKey = ConsoleKey.Delete;
 
             ConsoleKey lastKey = ConsoleKey.Delete;
@@ -85,7 +82,7 @@ namespace Snake
                     snakeTail.Add(newSnake);
 
                     Console.Clear();
-                    DrawArea();
+                    DrawArea(level);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -101,7 +98,7 @@ namespace Snake
                     snakeTail.Add(newSnake);
 
                     Console.Clear();
-                    DrawArea();
+                    DrawArea(level);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -117,7 +114,7 @@ namespace Snake
                     snakeTail.Add(newSnake);
 
                     Console.Clear();
-                    DrawArea();
+                    DrawArea(level);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -133,7 +130,7 @@ namespace Snake
                     snakeTail.Add(newSnake);
 
                     Console.Clear();
-                    DrawArea();
+                    DrawArea(level);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -160,34 +157,83 @@ namespace Snake
 
             return snakeTail;
         }
-        public static void DrawArea()
+        public static void DrawArea(int level)
         {
-            for (int i = 30; i <= 90; i++)
+            switch (level)
             {
-                Console.SetCursorPosition(i, 2);
-                Console.Write("#");
-            }
+                case 1:
+                    for (int i = 30; i <= 90; i++)
+                    {
+                        Console.SetCursorPosition(i, 2);
+                        Console.Write("#");
+                    }
 
-            for (int i = 3; i <= 24; i++)
-            {
-                Console.SetCursorPosition(30, i);
-                Console.WriteLine("#");
-            }
+                    for (int i = 3; i <= 24; i++)
+                    {
+                        Console.SetCursorPosition(30, i);
+                        Console.WriteLine("#");
+                    }
 
-            for (int i = 3; i <= 24; i++)
-            {
-                Console.SetCursorPosition(90, i);
-                Console.WriteLine("#");
-            }
+                    for (int i = 3; i <= 24; i++)
+                    {
+                        Console.SetCursorPosition(90, i);
+                        Console.WriteLine("#");
+                    }
 
-            for (int i = 30; i <= 90; i++)
-            {
-                Console.SetCursorPosition(i, 24);
-                Console.Write("#");
-            }
+                    for (int i = 30; i <= 90; i++)
+                    {
+                        Console.SetCursorPosition(i, 24);
+                        Console.Write("#");
+                    }
 
-            Console.SetCursorPosition(100, 27);
-            Console.Write("By: BalioFVFX");
+                    Console.SetCursorPosition(100, 27);
+                    Console.Write("By: BalioFVFX");
+                    break;
+                case 2:
+                    for (int i = 30; i <= 90; i++)
+                    {
+                        Console.SetCursorPosition(i, 2);
+                        Console.Write("#");
+                    }
+
+                    for (int i = 3; i <= 24; i++)
+                    {
+                        Console.SetCursorPosition(30, i);
+                        Console.WriteLine("#");
+                    }
+
+                    for (int i = 3; i <= 24; i++)
+                    {
+                        Console.SetCursorPosition(90, i);
+                        Console.WriteLine("#");
+                    }
+
+                    // Tunnel
+                    for (int i = 50; i < 71; i++)
+                    {
+                        Console.SetCursorPosition(i, 10);
+                        Console.Write("#");
+                    }
+
+                    // Tunnel
+                    for (int i = 50; i < 71; i++)
+                    {
+                        Console.SetCursorPosition(i, 15);
+                        Console.Write("#");
+                    }
+
+                    for (int i = 30; i <= 90; i++)
+                    {
+                        Console.SetCursorPosition(i, 24);
+                        Console.Write("#");
+                    }
+
+                    Console.SetCursorPosition(100, 27);
+                    Console.Write("By: BalioFVFX");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
