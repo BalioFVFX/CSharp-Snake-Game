@@ -25,7 +25,7 @@ namespace Snake
                 if (Console.KeyAvailable)
                 {
                     currentKey = Console.ReadKey().Key;
-                    Console.WriteLine(currentKey);
+                    continue;
                 }
 
                 if (currentKey == ConsoleKey.RightArrow)
