@@ -5,11 +5,16 @@ namespace Snake
 {
     class Program
     {
+
+
+
         static void Main(string[] args)
         {
             Console.Title = "Snake Game";
-
+            
             Snake snake = new Snake(0, 0);
+
+            DrawArea();
 
             int snakeXPosition = 0;
             int snakeYPosition = 0;
@@ -77,9 +82,37 @@ namespace Snake
                 Console.SetCursorPosition(snakeXPosition, snakeYPosition);
                 Console.Write("*");
                 Console.Clear();
+                DrawArea();
             }
 
             Console.WriteLine("GAME OVER!");
+        }
+
+        public static void DrawArea()
+        {
+            for (int i = 30; i <= 90; i++)
+            {
+                Console.SetCursorPosition(i, 2);
+                Console.Write("#");
+            }
+
+            for (int i = 3; i <= 24; i++)
+            {
+                Console.SetCursorPosition(30, i);
+                Console.WriteLine("#");
+            }
+
+            for (int i = 3; i <= 24; i++)
+            {
+                Console.SetCursorPosition(90, i);
+                Console.WriteLine("#");
+            }
+
+            for (int i = 30; i <= 90; i++)
+            {
+                Console.SetCursorPosition(i, 24);
+                Console.Write("#");
+            }
         }
     }
 }
