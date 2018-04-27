@@ -18,17 +18,19 @@ namespace Snake
 
 
             ConsoleKey currentKey = ConsoleKey.Delete;
+            ConsoleKey lastKey = ConsoleKey.Delete;
+            int speed = 300;
             while (true)
             {
-               
-
                 if (Console.KeyAvailable)
                 {
                     currentKey = Console.ReadKey().Key;
+                    Console.WriteLine(currentKey);
                 }
 
                 if (currentKey == ConsoleKey.RightArrow)
                 {
+                    lastKey = currentKey;
                     snakeTail.RemoveAt(0);
                     Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
                     newSnake.PositionX++;
@@ -45,6 +47,7 @@ namespace Snake
 
                 if (currentKey == ConsoleKey.DownArrow)
                 {
+                    lastKey = currentKey;
                     snakeTail.RemoveAt(0);
                     Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
                     newSnake.PositionY++;
@@ -61,6 +64,7 @@ namespace Snake
 
                 if (currentKey == ConsoleKey.LeftArrow)
                 {
+                    lastKey = currentKey;
                     snakeTail.RemoveAt(0);
                     Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
                     newSnake.PositionX--;
@@ -77,6 +81,7 @@ namespace Snake
 
                 if (currentKey == ConsoleKey.UpArrow)
                 {
+                    lastKey = currentKey;
                     snakeTail.RemoveAt(0);
                     Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
                     newSnake.PositionY--;
@@ -90,7 +95,7 @@ namespace Snake
                         Console.Write("*");
                     }
                 }
-                Thread.Sleep(300);
+                Thread.Sleep(speed);
             }
 
             Console.WriteLine("GAME OVER!");
