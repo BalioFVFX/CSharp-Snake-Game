@@ -30,8 +30,18 @@ namespace Snake
 
                     if (lastKey == currentKey)
                     {
+                        if(speed > 100)
+                        {
+                            speed -= 40;
+                        }
+                        else if(speed > 30)
+                        {
+                            speed -= 10;
+                        }
+                        
                         continue;
                     }
+                    speed = 300;
 
                     lastKey = currentKey;
                 }
