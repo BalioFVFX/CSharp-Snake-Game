@@ -16,11 +16,11 @@ namespace Snake
             
             DrawArea();
 
-            
 
+            ConsoleKey currentKey = ConsoleKey.Delete;
             while (true)
             {
-                ConsoleKey currentKey = ConsoleKey.Delete;
+               
 
                 if (Console.KeyAvailable)
                 {
@@ -90,6 +90,7 @@ namespace Snake
                         Console.Write("*");
                     }
                 }
+                Thread.Sleep(300);
             }
 
             Console.WriteLine("GAME OVER!");
@@ -134,6 +135,9 @@ namespace Snake
                 Console.SetCursorPosition(i, 24);
                 Console.Write("#");
             }
+
+            Console.SetCursorPosition(100, 27);
+            Console.Write("By: BalioFVFX");
         }
     }
 }
