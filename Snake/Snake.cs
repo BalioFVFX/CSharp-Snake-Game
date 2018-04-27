@@ -8,11 +8,11 @@ namespace Snake
     {
         public Snake(int x, int y)
         {
-            this.positionX = x;
-            this.positionY = y;
+            this.PositionX = x;
+            this.PositionY = y;
         }
 
-        private int positionX;
-        private int positionY;
+        public int PositionX;
+        public int PositionY;
     }
 }
