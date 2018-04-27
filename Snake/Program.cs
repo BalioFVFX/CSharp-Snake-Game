@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Threading;
 
 namespace Snake
@@ -8,6 +8,8 @@ namespace Snake
         static void Main(string[] args)
         {
             Console.Title = "Snake Game";
+
+            Snake snake = new Snake(0, 0);
 
             int snakeXPosition = 0;
             int snakeYPosition = 0;
@@ -22,9 +24,6 @@ namespace Snake
                     currentKey = Console.ReadKey().Key;
                 }
 
-
-                
-                
                 if(currentKey == ConsoleKey.DownArrow)
                 {
                     snakeYPosition++;
