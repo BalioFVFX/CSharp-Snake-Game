@@ -12,44 +12,15 @@ namespace Snake
         static void Main(string[] args)
         {
             Console.Title = "Snake Game";
-            Console.WriteLine("Please enter level number");
-            Console.WriteLine("1 - Classic");
-            Console.WriteLine("2 - Tunnel");
-            Console.WriteLine("3 - Exit the game");
-            int level = 4;
-            while(level <= 0 || level >= 4)
-            {
-                try
-                {
-                    level = int.Parse(Console.ReadLine());
-                    switch (level)
-                    {
-                        case 1:
-                            Console.Clear();
-                            DrawArea(level);
-                            break;
-                        case 2:
-                            Console.Clear();
-                            DrawArea(level);
-                            break;
-                        case 3:
-                            return;
-                        default:
-                            break;
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Please enter a number in range 1 -3");
-                }
-            }
+            int speed = 300;
+            int level = Menu();
+
             List<Snake> snakeTail = InitializeSnake(5);
             
             ConsoleKey currentKey = ConsoleKey.Delete;
-
             ConsoleKey lastKey = ConsoleKey.Delete;
 
-            int speed = 300;
+
             while (true)
             {
                 if (Console.KeyAvailable)
@@ -157,6 +128,43 @@ namespace Snake
 
             return snakeTail;
         }
+
+        public static int Menu()
+        {
+            Console.WriteLine("Please enter level number");
+            Console.WriteLine("1 - Classic");
+            Console.WriteLine("2 - Tunnel");
+            Console.WriteLine("3 - Exit the game");
+            int level = 4;
+            while (level <= 0 || level >= 4)
+            {
+                try
+                {
+                    level = int.Parse(Console.ReadLine());
+                    switch (level)
+                    {
+                        case 1:
+                            Console.Clear();
+                            DrawArea(level);
+                            return 1;
+                        case 2:
+                            Console.Clear();
+                            DrawArea(level);
+                            return 2;
+                        case 3:
+                            break;
+                        default:
+                            return 3;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Please enter a number in range 1 -3");
+                }
+            }
+            return 0;
+        }
+
         public static void DrawArea(int level)
         {
             switch (level)
