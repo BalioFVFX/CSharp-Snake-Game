@@ -14,6 +14,9 @@ namespace Snake
             Console.Title = "Snake Game";
             int speed = 300;
             int level = Menu();
+            Random randFoodPosition = new Random();
+            int foodPositionX = randFoodPosition.Next(31, 90);
+            int foodPositionY = randFoodPosition.Next(3, 23);
 
             List<Snake> snakeTail = InitializeSnake(5);
             
@@ -54,6 +57,7 @@ namespace Snake
 
                     Console.Clear();
                     DrawArea(level);
+                    DrawFood(foodPositionX, foodPositionY);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -70,6 +74,7 @@ namespace Snake
 
                     Console.Clear();
                     DrawArea(level);
+                    DrawFood(foodPositionX, foodPositionY);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -86,6 +91,7 @@ namespace Snake
 
                     Console.Clear();
                     DrawArea(level);
+                    DrawFood(foodPositionX, foodPositionY);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -102,6 +108,7 @@ namespace Snake
 
                     Console.Clear();
                     DrawArea(level);
+                    DrawFood(foodPositionX, foodPositionY);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -112,6 +119,12 @@ namespace Snake
             }
             
             Console.WriteLine("GAME OVER!");
+        }
+
+        public static void DrawFood(int x, int y)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write("*");
         }
 
         public static List<Snake> InitializeSnake(int snakeLength)
@@ -170,24 +183,28 @@ namespace Snake
             switch (level)
             {
                 case 1:
+                    // TOP
                     for (int i = 30; i <= 90; i++)
                     {
                         Console.SetCursorPosition(i, 2);
                         Console.Write("#");
                     }
 
+                    // LEFT
                     for (int i = 3; i <= 24; i++)
                     {
                         Console.SetCursorPosition(30, i);
                         Console.WriteLine("#");
                     }
 
+                    // RIGHT
                     for (int i = 3; i <= 24; i++)
                     {
                         Console.SetCursorPosition(90, i);
                         Console.WriteLine("#");
                     }
 
+                    // DOWN
                     for (int i = 30; i <= 90; i++)
                     {
                         Console.SetCursorPosition(i, 24);
@@ -198,18 +215,19 @@ namespace Snake
                     Console.Write("By: BalioFVFX");
                     break;
                 case 2:
+                    // TOP
                     for (int i = 30; i <= 90; i++)
                     {
                         Console.SetCursorPosition(i, 2);
                         Console.Write("#");
                     }
-
+                    // LEFT
                     for (int i = 3; i <= 24; i++)
                     {
                         Console.SetCursorPosition(30, i);
                         Console.WriteLine("#");
                     }
-
+                    // RIGHT
                     for (int i = 3; i <= 24; i++)
                     {
                         Console.SetCursorPosition(90, i);
@@ -230,6 +248,7 @@ namespace Snake
                         Console.Write("#");
                     }
 
+                    // DOWN
                     for (int i = 30; i <= 90; i++)
                     {
                         Console.SetCursorPosition(i, 24);
