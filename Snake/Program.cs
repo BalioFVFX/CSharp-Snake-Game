@@ -18,7 +18,7 @@ namespace Snake
             int foodPositionX = randFoodPosition.Next(31, 90);
             int foodPositionY = randFoodPosition.Next(3, 23);
 
-            List<Snake> snakeTail = InitializeSnake(5);
+            List<Snake> snakeTail = InitializeSnake(2);
             
             ConsoleKey currentKey = ConsoleKey.Delete;
             ConsoleKey lastKey = ConsoleKey.Delete;
@@ -58,6 +58,11 @@ namespace Snake
                     Console.Clear();
                     DrawArea(level);
                     DrawFood(foodPositionX, foodPositionY);
+                    if (CollisionWithFood(snakeTail, foodPositionX, foodPositionY))
+                    {
+                        foodPositionX = randFoodPosition.Next(31, 90);
+                        foodPositionY = randFoodPosition.Next(3, 23);
+                    }
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -75,6 +80,11 @@ namespace Snake
                     Console.Clear();
                     DrawArea(level);
                     DrawFood(foodPositionX, foodPositionY);
+                    if (CollisionWithFood(snakeTail, foodPositionX, foodPositionY))
+                    {
+                        foodPositionX = randFoodPosition.Next(31, 90);
+                        foodPositionY = randFoodPosition.Next(3, 23);
+                    }
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -92,6 +102,11 @@ namespace Snake
                     Console.Clear();
                     DrawArea(level);
                     DrawFood(foodPositionX, foodPositionY);
+                    if (CollisionWithFood(snakeTail, foodPositionX, foodPositionY))
+                    {
+                        foodPositionX = randFoodPosition.Next(31, 90);
+                        foodPositionY = randFoodPosition.Next(3, 23);
+                    }
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -109,6 +124,11 @@ namespace Snake
                     Console.Clear();
                     DrawArea(level);
                     DrawFood(foodPositionX, foodPositionY);
+                    if(CollisionWithFood(snakeTail, foodPositionX, foodPositionY))
+                    {
+                        foodPositionX = randFoodPosition.Next(31, 90);
+                        foodPositionY = randFoodPosition.Next(3, 23);
+                    }
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -125,6 +145,17 @@ namespace Snake
         {
             Console.SetCursorPosition(x, y);
             Console.Write("*");
+        }
+
+        public static bool CollisionWithFood(List<Snake> snakeTail, int foodPositionX, int foodPositionY)
+        {
+            if(snakeTail[snakeTail.Count - 1].PositionX == foodPositionX && snakeTail[snakeTail.Count - 1].PositionY == foodPositionY)
+            {
+                Snake tail = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                snakeTail.Add(tail);
+                return true;
+            }
+            return false;
         }
 
         public static List<Snake> InitializeSnake(int snakeLength)
