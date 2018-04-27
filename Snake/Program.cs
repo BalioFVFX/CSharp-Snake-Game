@@ -12,7 +12,7 @@ namespace Snake
         static void Main(string[] args)
         {
             Console.Title = "Snake Game";
-            List<Snake> snakeTail = InitializeSnake();
+            List<Snake> snakeTail = InitializeSnake(5);
             
             DrawArea();
 
@@ -94,18 +94,18 @@ namespace Snake
 
             Console.WriteLine("GAME OVER!");
         }
-        public static List<Snake> InitializeSnake()
-        {
-            Snake snake = new Snake(31, 3);
-            Snake snake2 = new Snake(32, 3);
-            Snake snake3 = new Snake(33, 3);
-            List<Snake> snakeTail = new List<Snake>();
-            snakeTail.Add(snake);
-            snakeTail.Add(snake2);
-            snakeTail.Add(snake3);
 
+        public static List<Snake> InitializeSnake(int snakeLength)
+        {
+            List<Snake> snakeTail = new List<Snake>();
+            for (int i = 0; i < snakeLength; i++)
+            {
+                Snake snake = new Snake(31 + i, 3);
+                snakeTail.Add(snake);
+            }
+            
             Console.SetCursorPosition(31, 3);
-            Console.Write(new string('*', 3));
+            Console.Write(new string('*', snakeLength));
 
             return snakeTail;
         }
