@@ -1,4 +1,5 @@
 ﻿﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Snake
@@ -12,13 +13,16 @@ namespace Snake
         {
             Console.Title = "Snake Game";
             
-            Snake snake = new Snake(0, 0);
-
+            Snake snake = new Snake(31, 3);
+            Snake snake2 = new Snake(32, 3);
+            Snake snake3 = new Snake(33, 3);
+            List<Snake> snakeTail = new List<Snake>();
+            snakeTail.Add(snake);
+            snakeTail.Add(snake2);
+            snakeTail.Add(snake3);
             DrawArea();
 
-            int snakeXPosition = 0;
-            int snakeYPosition = 0;
-            ConsoleKey lastKey = ConsoleKey.Delete;
+            
 
             while (true)
             {
@@ -29,60 +33,69 @@ namespace Snake
                     currentKey = Console.ReadKey().Key;
                 }
 
-                if(currentKey == ConsoleKey.DownArrow)
+                if (currentKey == ConsoleKey.RightArrow)
                 {
-                    snakeYPosition++;
-                    lastKey = currentKey;
-                }
-                else if (currentKey == ConsoleKey.UpArrow)
-                {
-                    snakeYPosition--;
-                    lastKey = currentKey;
-                }
-                else if (currentKey == ConsoleKey.LeftArrow)
-                {
-                    snakeXPosition--;
-                    lastKey = currentKey;
-                }
-                else if (currentKey == ConsoleKey.RightArrow)
-                {
-                    snakeXPosition++;
-                    lastKey = currentKey;
-                }
-                
-                if(snakeYPosition < 0 || snakeXPosition < 0)
-                {
-                    Console.SetCursorPosition(0, 0);
-                    break;
-                }
-                Console.SetCursorPosition(snakeXPosition, snakeYPosition);
-                Console.Write("*");
-                Thread.Sleep(500);
+                    snakeTail.RemoveAt(0);
+                    Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                    newSnake.PositionX++;
+                    snakeTail.Add(newSnake);
 
-                if (!Console.KeyAvailable)
-                {
-                    if (lastKey == ConsoleKey.DownArrow)
+                    Console.Clear();
+                    DrawArea();
+                    foreach (var snakePart in snakeTail)
                     {
-                        snakeYPosition++;
-                    }
-                    else if (lastKey == ConsoleKey.UpArrow)
-                    {
-                        snakeYPosition--;
-                    }
-                    else if (lastKey == ConsoleKey.LeftArrow)
-                    {
-                        snakeXPosition--;
-                    }
-                    else if (lastKey == ConsoleKey.RightArrow)
-                    {
-                        snakeXPosition++;
+                        Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
+                        Console.Write("*");
                     }
                 }
 
-                Console.SetCursorPosition(snakeXPosition, snakeYPosition);
-                Console.Write("*");
-                Console.Clear();
-                DrawArea();
+                if (currentKey == ConsoleKey.DownArrow)
+                {
+                    snakeTail.RemoveAt(0);
+                    Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                    newSnake.PositionY++;
+                    snakeTail.Add(newSnake);
+
+                    Console.Clear();
+                    DrawArea();
+                    foreach (var snakePart in snakeTail)
+                    {
+                        Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
+                        Console.Write("*");
+                    }
+                }
+
+                if (currentKey == ConsoleKey.LeftArrow)
+                {
+                    snakeTail.RemoveAt(0);
+                    Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                    newSnake.PositionX--;
+                    snakeTail.Add(newSnake);
+
+                    Console.Clear();
+                    DrawArea();
+                    foreach (var snakePart in snakeTail)
+                    {
+                        Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
+                        Console.Write("*");
+                    }
+                }
+
+                if (currentKey == ConsoleKey.UpArrow)
+                {
+                    snakeTail.RemoveAt(0);
+                    Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                    newSnake.PositionY--;
+                    snakeTail.Add(newSnake);
+
+                    Console.Clear();
+                    DrawArea();
+                    foreach (var snakePart in snakeTail)
+                    {
+                        Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
+                        Console.Write("*");
+                    }
+                }
             }
 
             Console.WriteLine("GAME OVER!");
