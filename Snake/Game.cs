@@ -10,17 +10,26 @@ namespace Snake
 
         public Game()
         {
-            ConsoleKey currentKey = ConsoleKey.Delete;
-            ConsoleKey lastKey = ConsoleKey.Delete;
+            this.currentKey = ConsoleKey.Delete;
+            this.lastKey = ConsoleKey.Delete;
+            this.points = 20;
+            this.speed = 300;
+            this.randFoodPosition = new Random();
+            this.foodPositionX = this.randFoodPosition.Next(31, 90);
+            this.foodPositionY = this.randFoodPosition.Next(3, 23);
         }
 
         public bool GameOver { get; set; }
         private ConsoleKey currentKey;
         private ConsoleKey lastKey;
+        private int points;
+        private int speed;
+        private int foodPositionX;
+        private int foodPositionY;
+        private Random randFoodPosition;
 
-        public void StartGame(int level, int speed, List<Snake> snakeTail, int foodPositionX, int foodPositionY, Random randFoodPosition, int points)
+        public void StartGame(int level, Snake snake)
         {
-            Environment.DrawArea(level);
 
             while (true)
             {
@@ -48,11 +57,12 @@ namespace Snake
 
                 Console.Clear();
                 Environment.DrawArea(level);
+                DrawPoints(points);
                 Environment.DrawFood(foodPositionX, foodPositionY);
-                Snake.Update(currentKey, snakeTail);
-                Snake.CollisionWithFood(snakeTail, foodPositionX, foodPositionY);
+                Snake.Update(currentKey, snake.SnakeTail);
+                Snake.CollisionWithFood(snake.SnakeTail, foodPositionX, foodPositionY);
                 
-                Snake.Draw(snakeTail);
+                Snake.Draw(snake.SnakeTail);
                 
                 Thread.Sleep(speed);
             }
