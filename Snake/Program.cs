@@ -147,11 +147,18 @@ namespace Snake
             Console.Write("*");
         }
 
+        public static void PlaySound()
+        {
+            Console.Beep(150, 100);
+        }
+
         public static bool CollisionWithFood(List<Snake> snakeTail, int foodPositionX, int foodPositionY)
         {
             if(snakeTail[snakeTail.Count - 1].PositionX == foodPositionX && snakeTail[snakeTail.Count - 1].PositionY == foodPositionY)
             {
+                Thread soundThread = new Thread(PlaySound);
                 Snake tail = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                soundThread.Start();
                 snakeTail.Add(tail);
                 return true;
             }
