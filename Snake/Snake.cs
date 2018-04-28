@@ -18,6 +18,49 @@ namespace Snake
         public int PositionY;
         public List<Snake> SnakeTail;
 
+        public static void Update(ConsoleKey currentKey, List<Snake> snakeTail)
+        {
+            if (currentKey == ConsoleKey.RightArrow)
+            {
+                snakeTail.RemoveAt(0);
+                Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                newSnake.PositionX++;
+                snakeTail.Add(newSnake);
+            }
+
+            else if (currentKey == ConsoleKey.DownArrow)
+            {
+                snakeTail.RemoveAt(0);
+                Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                newSnake.PositionY++;
+                snakeTail.Add(newSnake);
+            }
+
+            else if (currentKey == ConsoleKey.LeftArrow)
+            {
+                snakeTail.RemoveAt(0);
+                Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                newSnake.PositionX--;
+                snakeTail.Add(newSnake);
+            }
+
+            else if (currentKey == ConsoleKey.UpArrow)
+            {
+                snakeTail.RemoveAt(0);
+                Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                newSnake.PositionY--;
+                snakeTail.Add(newSnake);
+            }
+        }
+
+        public static void Draw(List<Snake> snakeTail)
+        {
+            foreach (var snakePart in snakeTail)
+            {
+                Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
+                Console.Write("*");
+            }
+        }
 
         public static bool CollisionWithSnake(List<Snake> snakeTail)
         {

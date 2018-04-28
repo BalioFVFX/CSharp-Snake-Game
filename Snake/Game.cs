@@ -7,9 +7,18 @@ namespace Snake
 {
     class Game
     {
-        public bool GameOver { get; set; }
 
-        public void StartGame(int level, ConsoleKey currentKey, ConsoleKey lastKey, int speed, List<Snake> snakeTail, int foodPositionX, int foodPositionY, Random randFoodPosition, int points)
+        public Game()
+        {
+            ConsoleKey currentKey = ConsoleKey.Delete;
+            ConsoleKey lastKey = ConsoleKey.Delete;
+        }
+
+        public bool GameOver { get; set; }
+        private ConsoleKey currentKey;
+        private ConsoleKey lastKey;
+
+        public void StartGame(int level, int speed, List<Snake> snakeTail, int foodPositionX, int foodPositionY, Random randFoodPosition, int points)
         {
             Environment.DrawArea(level);
 
@@ -37,124 +46,14 @@ namespace Snake
                     lastKey = currentKey;
                 }
 
-                if (currentKey == ConsoleKey.RightArrow)
-                {
-                    snakeTail.RemoveAt(0);
-
-                    Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
-                    newSnake.PositionX++;
-                    snakeTail.Add(newSnake);
-
-
-                    Console.Clear();
-                    Environment.DrawArea(level);
-                    Environment.DrawFood(foodPositionX, foodPositionY);
-                    if (Snake.CollisionWithSnake(snakeTail))
-                    {
-                        break;
-                    }
-                    if (Snake.CollisionWithFood(snakeTail, foodPositionX, foodPositionY))
-                    {
-                        foodPositionX = randFoodPosition.Next(31, 90);
-                        foodPositionY = randFoodPosition.Next(3, 23);
-                        points += 10;
-                    }
-                    DrawPoints(points);
-
-                    foreach (var snakePart in snakeTail)
-                    {
-                        Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
-                        Console.Write("*");
-                    }
-                }
-
-                else if (currentKey == ConsoleKey.DownArrow)
-                {
-                    snakeTail.RemoveAt(0);
-                    Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
-                    newSnake.PositionY++;
-                    snakeTail.Add(newSnake);
-
-                    Console.Clear();
-                    Environment.DrawArea(level);
-                    Environment.DrawFood(foodPositionX, foodPositionY);
-                    if (Snake.CollisionWithSnake(snakeTail))
-                    {
-                        break;
-                    }
-                    if (Snake.CollisionWithFood(snakeTail, foodPositionX, foodPositionY))
-                    {
-                        foodPositionX = randFoodPosition.Next(31, 90);
-                        foodPositionY = randFoodPosition.Next(3, 23);
-                        points += 10;
-                    }
-                    DrawPoints(points);
-
-                    foreach (var snakePart in snakeTail)
-                    {
-                        Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
-                        Console.Write("*");
-                    }
-                }
-
-                else if (currentKey == ConsoleKey.LeftArrow)
-                {
-                    snakeTail.RemoveAt(0);
-                    Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
-                    newSnake.PositionX--;
-                    snakeTail.Add(newSnake);
-
-                    Console.Clear();
-                    Environment.DrawArea(level);
-                    Environment.DrawFood(foodPositionX, foodPositionY);
-
-                    if (Snake.CollisionWithSnake(snakeTail))
-                    {
-                        break;
-                    }
-                    if (Snake.CollisionWithFood(snakeTail, foodPositionX, foodPositionY))
-                    {
-                        foodPositionX = randFoodPosition.Next(31, 90);
-                        foodPositionY = randFoodPosition.Next(3, 23);
-                        points += 10;
-                    }
-                    DrawPoints(points);
-
-                    foreach (var snakePart in snakeTail)
-                    {
-                        Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
-                        Console.Write("*");
-                    }
-                }
-
-                else if (currentKey == ConsoleKey.UpArrow)
-                {
-                    snakeTail.RemoveAt(0);
-                    Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
-                    newSnake.PositionY--;
-                    snakeTail.Add(newSnake);
-
-                    Console.Clear();
-                    Environment.DrawArea(level);
-                    Environment.DrawFood(foodPositionX, foodPositionY);
-                    if (Snake.CollisionWithSnake(snakeTail))
-                    {
-                        break;
-                    }
-                    if (Snake.CollisionWithFood(snakeTail, foodPositionX, foodPositionY))
-                    {
-                        foodPositionX = randFoodPosition.Next(31, 90);
-                        foodPositionY = randFoodPosition.Next(3, 23);
-                        points += 10;
-                    }
-
-                    DrawPoints(points);
-                    foreach (var snakePart in snakeTail)
-                    {
-                        Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
-                        Console.Write("*");
-                    }
-                }
+                Console.Clear();
+                Environment.DrawArea(level);
+                Environment.DrawFood(foodPositionX, foodPositionY);
+                Snake.Update(currentKey, snakeTail);
+                Snake.CollisionWithFood(snakeTail, foodPositionX, foodPositionY);
+                
+                Snake.Draw(snakeTail);
+                
                 Thread.Sleep(speed);
             }
         }

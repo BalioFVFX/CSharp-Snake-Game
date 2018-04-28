@@ -19,13 +19,15 @@ namespace Snake
             Game game = new Game();
 
 
-            ConsoleKey currentKey = ConsoleKey.Delete;
-            ConsoleKey lastKey = ConsoleKey.Delete;
+            
             Snake snake = new Snake(1, 1);
 
             snake.SnakeTail = Snake.InitializeSnake(3);
             int level = game.Menu();
-            game.StartGame(level, currentKey, lastKey, speed, snake.SnakeTail, foodPositionX, foodPositionY, randFoodPosition, points);
+
+            game.StartGame(level, speed, snake.SnakeTail, foodPositionX, foodPositionY, randFoodPosition, points);
+            
+            
             
         }
     }
