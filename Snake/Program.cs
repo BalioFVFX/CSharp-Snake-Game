@@ -7,13 +7,12 @@ namespace Snake
     class Program
     {
 
-
-
         static void Main(string[] args)
         {
             Console.Title = "Snake Game";
             int speed = 300;
             int level = Menu();
+            int points = 20;
             Random randFoodPosition = new Random();
             int foodPositionX = randFoodPosition.Next(31, 90);
             int foodPositionY = randFoodPosition.Next(3, 23);
@@ -62,7 +61,9 @@ namespace Snake
                     {
                         foodPositionX = randFoodPosition.Next(31, 90);
                         foodPositionY = randFoodPosition.Next(3, 23);
+                        points += 10;
                     }
+                    DrawPoints(points);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -84,7 +85,9 @@ namespace Snake
                     {
                         foodPositionX = randFoodPosition.Next(31, 90);
                         foodPositionY = randFoodPosition.Next(3, 23);
+                        points += 10;
                     }
+                    DrawPoints(points);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -106,7 +109,9 @@ namespace Snake
                     {
                         foodPositionX = randFoodPosition.Next(31, 90);
                         foodPositionY = randFoodPosition.Next(3, 23);
+                        points += 10;
                     }
+                    DrawPoints(points);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -128,7 +133,9 @@ namespace Snake
                     {
                         foodPositionX = randFoodPosition.Next(31, 90);
                         foodPositionY = randFoodPosition.Next(3, 23);
+                        points += 10;
                     }
+                    DrawPoints(points);
                     foreach (var snakePart in snakeTail)
                     {
                         Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
@@ -145,6 +152,12 @@ namespace Snake
         {
             Console.SetCursorPosition(x, y);
             Console.Write("*");
+        }
+
+        public static void DrawPoints(int points)
+        {
+            Console.SetCursorPosition(100, 1);
+            Console.Write("Points: {0}", points);
         }
 
         public static void PlaySound()
