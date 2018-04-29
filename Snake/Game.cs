@@ -79,7 +79,7 @@ namespace Snake
                     foodPositionX = randFoodPosition.Next(31, 90);
                     foodPositionY = randFoodPosition.Next(3, 23);
                 }
-                if (snake.CollisionWithWall())
+                if (snake.CollisionWithWall(this.level))
                 {
                     this.GameOver = true;
                     break;

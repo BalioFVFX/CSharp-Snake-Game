@@ -69,14 +69,14 @@ namespace Snake
                         Console.WriteLine("#");
                     }
 
-                    // Tunnel
+                    // Tunnel TOP
                     for (int i = 50; i < 71; i++)
                     {
                         Console.SetCursorPosition(i, 10);
                         Console.Write("#");
                     }
 
-                    // Tunnel
+                    // Tunnel BOTTOM
                     for (int i = 50; i < 71; i++)
                     {
                         Console.SetCursorPosition(i, 15);

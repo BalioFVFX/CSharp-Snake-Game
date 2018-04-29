@@ -93,15 +93,35 @@ namespace Snake
             return false;
         }
 
-        public bool CollisionWithWall()
+        public bool CollisionWithWall(int level)
         {
-            if (SnakeTail[SnakeTail.Count - 1].PositionX <= 30 || 
+            switch (level)
+            {
+                case 1:
+                if (SnakeTail[SnakeTail.Count - 1].PositionX <= 30 ||
                 SnakeTail[SnakeTail.Count - 1].PositionY <= 2 ||
                 SnakeTail[SnakeTail.Count - 1].PositionX >= 90 ||
                 SnakeTail[SnakeTail.Count - 1].PositionY >= 24)
-            {
-                return true;
+                    {
+                        return true;
+                    }
+                    break;
+                case 2:
+                if (SnakeTail[SnakeTail.Count - 1].PositionX <= 30 ||
+                SnakeTail[SnakeTail.Count - 1].PositionY <= 2 ||
+                SnakeTail[SnakeTail.Count - 1].PositionX >= 90 ||
+                SnakeTail[SnakeTail.Count - 1].PositionY >= 24 ||
+                SnakeTail[SnakeTail.Count - 1].PositionX >= 50 && SnakeTail[SnakeTail.Count - 1].PositionX <= 70 && SnakeTail[SnakeTail.Count - 1].PositionY == 10 ||
+                SnakeTail[SnakeTail.Count - 1].PositionX >= 50 && SnakeTail[SnakeTail.Count - 1].PositionX <= 70 && SnakeTail[SnakeTail.Count - 1].PositionY == 15)
+                    {
+                        return true;
+                    }
+                    break;
+
+                default:
+                    break;
             }
+            
             return false;
         }
 
