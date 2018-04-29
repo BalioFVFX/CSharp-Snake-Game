@@ -18,44 +18,44 @@ namespace Snake
         public int PositionY;
         public List<Snake> SnakeTail;
 
-        public static void Update(ConsoleKey currentKey, List<Snake> snakeTail)
+        public void Update(ConsoleKey currentKey )
         {
             if (currentKey == ConsoleKey.RightArrow)
             {
-                snakeTail.RemoveAt(0);
-                Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                SnakeTail.RemoveAt(0);
+                Snake newSnake = new Snake(SnakeTail[SnakeTail.Count - 1].PositionX, SnakeTail[SnakeTail.Count - 1].PositionY);
                 newSnake.PositionX++;
-                snakeTail.Add(newSnake);
+                SnakeTail.Add(newSnake);
             }
 
             else if (currentKey == ConsoleKey.DownArrow)
             {
-                snakeTail.RemoveAt(0);
-                Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                SnakeTail.RemoveAt(0);
+                Snake newSnake = new Snake(SnakeTail[SnakeTail.Count - 1].PositionX, SnakeTail[SnakeTail.Count - 1].PositionY);
                 newSnake.PositionY++;
-                snakeTail.Add(newSnake);
+                SnakeTail.Add(newSnake);
             }
 
             else if (currentKey == ConsoleKey.LeftArrow)
             {
-                snakeTail.RemoveAt(0);
-                Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                SnakeTail.RemoveAt(0);
+                Snake newSnake = new Snake(SnakeTail[SnakeTail.Count - 1].PositionX, SnakeTail[SnakeTail.Count - 1].PositionY);
                 newSnake.PositionX--;
-                snakeTail.Add(newSnake);
+                SnakeTail.Add(newSnake);
             }
 
             else if (currentKey == ConsoleKey.UpArrow)
             {
-                snakeTail.RemoveAt(0);
-                Snake newSnake = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                SnakeTail.RemoveAt(0);
+                Snake newSnake = new Snake(SnakeTail[SnakeTail.Count - 1].PositionX, SnakeTail[SnakeTail.Count - 1].PositionY);
                 newSnake.PositionY--;
-                snakeTail.Add(newSnake);
+                SnakeTail.Add(newSnake);
             }
         }
 
-        public static void Draw(List<Snake> snakeTail)
+        public void Draw()
         {
-            foreach (var snakePart in snakeTail)
+            foreach (var snakePart in SnakeTail)
             {
                 Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
                 Console.Write("*");
@@ -79,14 +79,14 @@ namespace Snake
             Console.Beep(150, 100);
         }
 
-        public static bool CollisionWithFood(List<Snake> snakeTail, int foodPositionX, int foodPositionY)
+        public bool CollisionWithFood(int foodPositionX, int foodPositionY)
         {
-            if (snakeTail[snakeTail.Count - 1].PositionX == foodPositionX && snakeTail[snakeTail.Count - 1].PositionY == foodPositionY)
+            if (SnakeTail[SnakeTail.Count - 1].PositionX == foodPositionX && SnakeTail[SnakeTail.Count - 1].PositionY == foodPositionY)
             {
                 Thread soundThread = new Thread(PlaySound);
-                Snake tail = new Snake(snakeTail[snakeTail.Count - 1].PositionX, snakeTail[snakeTail.Count - 1].PositionY);
+                Snake tail = new Snake(SnakeTail[SnakeTail.Count - 1].PositionX, SnakeTail[SnakeTail.Count - 1].PositionY);
                 soundThread.Start();
-                snakeTail.Add(tail);
+                SnakeTail.Add(tail);
                 return true;
             }
             return false;

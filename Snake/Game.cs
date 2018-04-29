@@ -59,10 +59,15 @@ namespace Snake
                 Environment.DrawArea(level);
                 DrawPoints(points);
                 Environment.DrawFood(foodPositionX, foodPositionY);
-                Snake.Update(currentKey, snake.SnakeTail);
-                Snake.CollisionWithFood(snake.SnakeTail, foodPositionX, foodPositionY);
+                snake.Update(currentKey);
+                if(snake.CollisionWithFood(foodPositionX, foodPositionY))
+                {
+                    points += 10;
+                    foodPositionX = randFoodPosition.Next(31, 90);
+                    foodPositionY = randFoodPosition.Next(3, 23);
+                }
                 
-                Snake.Draw(snake.SnakeTail);
+                snake.Draw();
                 
                 Thread.Sleep(speed);
             }
