@@ -77,6 +77,11 @@ namespace Snake
                     foodPositionX = randFoodPosition.Next(31, 90);
                     foodPositionY = randFoodPosition.Next(3, 23);
                 }
+                if (snake.CollisionWithWall())
+                {
+                    this.GameOver = true;
+                    break;
+                }
                 
                 Thread.Sleep(speed);
             }
@@ -95,7 +100,12 @@ namespace Snake
                 try
                 {
                     this.level = int.Parse(Console.ReadLine());
-                    switch (level)
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Please enter a number in range 1 -3");
+                }
+                switch (level)
                     {
                         case 1:
                             Environment.DrawArea(level);
@@ -109,13 +119,11 @@ namespace Snake
                         case 3:
                             return;
                         default:
-                            break;
+                        Console.WriteLine("Please enter a number in range 1 -3");
+                        break;
                     }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Please enter a number in range 1 -3");
-                }
+                
+
             }
         }
 

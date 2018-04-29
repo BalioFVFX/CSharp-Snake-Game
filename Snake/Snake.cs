@@ -93,6 +93,18 @@ namespace Snake
             return false;
         }
 
+        public bool CollisionWithWall()
+        {
+            if (SnakeTail[SnakeTail.Count - 1].PositionX <= 30 || 
+                SnakeTail[SnakeTail.Count - 1].PositionY <= 2 ||
+                SnakeTail[SnakeTail.Count - 1].PositionX >= 90 ||
+                SnakeTail[SnakeTail.Count - 1].PositionY >= 24)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public static List<Snake> InitializeSnake(int snakeLength)
         {
             List<Snake> snakeTail = new List<Snake>();
