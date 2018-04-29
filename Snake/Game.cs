@@ -27,7 +27,7 @@ namespace Snake
         private int foodPositionX;
         private int foodPositionY;
         private Random randFoodPosition;
-        public int level;
+        public int level { get; set; }
 
         public void StartGame()
         {
@@ -38,34 +38,34 @@ namespace Snake
             this.currentKey = ConsoleKey.Delete;
             this.speed = 300;
 
-            while (GameOver == false)
+            while (this.GameOver == false)
             {
                 if (Console.KeyAvailable)
                 {
-                    currentKey = Console.ReadKey(true).Key;
+                    this.currentKey = Console.ReadKey(true).Key;
 
-                    if (lastKey == currentKey)
+                    if (this.lastKey == this.currentKey)
                     {
-                        if (speed > 100)
+                        if (this.speed > 100)
                         {
-                            speed -= 40;
+                            this.speed -= 40;
                         }
-                        else if (speed > 30)
+                        else if (this.speed > 30)
                         {
-                            speed -= 10;
+                            this.speed -= 10;
                         }
 
                         continue;
                     }
-                    speed = 300;
+                    this.speed = 300;
 
-                    lastKey = currentKey;
+                    this.lastKey = this.currentKey;
                 }
 
                 Console.Clear();
-                Environment.DrawArea(level);
-                DrawPoints(points);
-                Environment.DrawFood(foodPositionX, foodPositionY);
+                Environment.DrawArea(this.level);
+                DrawPoints();
+                Environment.DrawFood(this.foodPositionX, this.foodPositionY);
                 snake.Update(currentKey);
                 snake.Draw();
                 if (snake.CollisionWithSnake())
@@ -75,9 +75,9 @@ namespace Snake
                 }
                 if (snake.CollisionWithFood(foodPositionX, foodPositionY))
                 {
-                    points += 10;
-                    foodPositionX = randFoodPosition.Next(31, 90);
-                    foodPositionY = randFoodPosition.Next(3, 23);
+                    this.points += 10;
+                    this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                    this.foodPositionY = this.randFoodPosition.Next(3, 23);
                 }
                 if (snake.CollisionWithWall(this.level))
                 {
@@ -85,7 +85,7 @@ namespace Snake
                     break;
                 }
                 
-                Thread.Sleep(speed);
+                Thread.Sleep(this.speed);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Snake
             Console.WriteLine("2 - Tunnel");
             Console.WriteLine("3 - Exit the game");
             this.level = 0;
-            while (level <= 0 || level >= 4)
+            while (this.level <= 0 || this.level >= 4)
             {
                 try
                 {
@@ -107,15 +107,15 @@ namespace Snake
                 {
                     Console.WriteLine("Please enter a number in range 1 -3");
                 }
-                switch (level)
+                switch (this.level)
                     {
                         case 1:
-                            Environment.DrawArea(level);
+                            Environment.DrawArea(this.level);
                             StartGame();
                             break;
                         case 2:
                             Console.Clear();
-                            Environment.DrawArea(level);
+                            Environment.DrawArea(this.level);
                             StartGame();
                             break;
                         case 3:
@@ -129,10 +129,10 @@ namespace Snake
             }
         }
 
-        public void DrawPoints(int points)
+        public void DrawPoints()
         {
             Console.SetCursorPosition(100, 1);
-            Console.Write("Points: {0}", points);
+            Console.Write("Points: {0}", this.points);
         }
     }
 }
