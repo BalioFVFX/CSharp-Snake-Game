@@ -101,9 +101,6 @@ namespace Snake
                 snakeTail.Add(snake);
             }
 
-            Console.SetCursorPosition(31, 3);
-            Console.Write(new string('*', snakeLength));
-
             return snakeTail;
         }
 
