@@ -16,7 +16,7 @@ namespace Snake
 
         public int PositionX;
         public int PositionY;
-        public List<Snake> SnakeTail;
+        public List<Snake> SnakeTail { get; set; }
 
         public void Update(ConsoleKey currentKey )
         {
@@ -62,12 +62,13 @@ namespace Snake
             }
         }
 
-        public static bool CollisionWithSnake(List<Snake> snakeTail)
+        public bool CollisionWithSnake()
         {
-            for (int i = 0; i < snakeTail.Count - 1; i++)
+            for (int i = 0; i < SnakeTail.Count - 1; i++)
             {
-                if (snakeTail[i].PositionX == snakeTail[snakeTail.Count - 1].PositionX && snakeTail[i].PositionY == snakeTail[snakeTail.Count - 1].PositionY)
+                if (SnakeTail[i].PositionX == SnakeTail[SnakeTail.Count - 1].PositionX && SnakeTail[i].PositionY == SnakeTail[SnakeTail.Count - 1].PositionY)
                 {
+                    SnakeTail.RemoveRange(0, SnakeTail.Count - 1);
                     return true;
                 }
             }

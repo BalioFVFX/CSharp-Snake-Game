@@ -10,22 +10,26 @@ namespace Snake
         static void Main(string[] args)
         {
             Console.Title = "Snake Game";
-            Random randFoodPosition = new Random();
-            int foodPositionX = randFoodPosition.Next(31, 90);
-            int foodPositionY = randFoodPosition.Next(3, 23);
+
 
             Game game = new Game();
 
+           
 
-            
-            Snake snake = new Snake(1, 1);
+            game.Menu();
 
-            snake.SnakeTail = Snake.InitializeSnake(3);
-            int level = game.Menu();
+            while (game.level != 3)
+            {
+                if(game.GameOver == false)
+                {
+                    game.StartGame();
+                }
+                else
+                {
+                    game.Menu();
+                }
+            }
 
-            game.StartGame(level, snake);
-            
-            
             
         }
     }
