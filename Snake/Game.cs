@@ -36,6 +36,8 @@ namespace Snake
             this.points = 20;
             this.GameOver = false;
             this.currentKey = ConsoleKey.Delete;
+            this.speed = 300;
+
             while (GameOver == false)
             {
                 if (Console.KeyAvailable)
