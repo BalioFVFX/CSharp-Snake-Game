@@ -10,7 +10,7 @@ namespace Snake
         static void Main(string[] args)
         {
             Console.Title = "Snake Game";
-
+            Console.CursorVisible = false;
 
             Game game = new Game();
 
