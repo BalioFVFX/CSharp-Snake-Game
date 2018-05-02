@@ -93,6 +93,38 @@ namespace Snake
                     Console.SetCursorPosition(100, 27);
                     Console.Write("By: BalioFVFX");
                     break;
+                case 4:
+                    // TOP
+                    for (int i = 41; i <= 77; i++)
+                    {
+                        Console.SetCursorPosition(i, 5);
+                        Console.Write("#");
+                    }
+
+                    // LEFT
+                    for (int i = 6; i <= 19; i++)
+                    {
+                        Console.SetCursorPosition(41, i);
+                        Console.WriteLine("#");
+                    }
+
+                    // RIGHT
+                    for (int i = 6; i <= 19; i++)
+                    {
+                        Console.SetCursorPosition(77, i);
+                        Console.WriteLine("#");
+                    }
+
+                    // DOWN
+                    for (int i = 41; i <= 77; i++)
+                    {
+                        Console.SetCursorPosition(i, 20);
+                        Console.Write("#");
+                    }
+
+                    Console.SetCursorPosition(100, 27);
+                    Console.Write("By: BalioFVFX");
+                    break;
                 default:
                     break;
             }
