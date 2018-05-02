@@ -107,7 +107,7 @@ namespace Snake
                             break;
                         case 3:
                             this.points += 10;
-                            this.foodPositionX = this.randFoodPosition.Next(41, 77);
+                            this.foodPositionX = this.randFoodPosition.Next(42, 77);
                             this.foodPositionY = this.randFoodPosition.Next(6, 20);
                             break;
                         default:
