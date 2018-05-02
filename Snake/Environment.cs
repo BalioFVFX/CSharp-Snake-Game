@@ -93,7 +93,7 @@ namespace Snake
                     Console.SetCursorPosition(100, 27);
                     Console.Write("By: BalioFVFX");
                     break;
-                case 4:
+                case 3:
                     // TOP
                     for (int i = 41; i <= 77; i++)
                     {

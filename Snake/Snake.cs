@@ -18,7 +18,7 @@ namespace Snake
         public int PositionY { get; set; }
         public List<Snake> SnakeTail { get; set; }
 
-        public void Update(ConsoleKey currentKey )
+        public void Update(ConsoleKey currentKey, ConsoleKey lastDirectionKey)
         {
             if (currentKey == ConsoleKey.RightArrow)
             {
@@ -36,7 +36,7 @@ namespace Snake
                 this.SnakeTail.Add(newSnake);
             }
 
-            else if (currentKey == ConsoleKey.LeftArrow)
+            else if (currentKey == ConsoleKey.LeftArrow && lastDirectionKey != ConsoleKey.RightArrow)
             {
                 this.SnakeTail.RemoveAt(0);
                 Snake newSnake = new Snake(this.SnakeTail[this.SnakeTail.Count - 1].PositionX, this.SnakeTail[this.SnakeTail.Count - 1].PositionY);

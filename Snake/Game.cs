@@ -12,6 +12,7 @@ namespace Snake
         {
             this.currentKey = ConsoleKey.Delete;
             this.lastKey = ConsoleKey.Delete;
+            this.lastDirectionKey = ConsoleKey.Delete;
             this.points = 20;
             this.speed = 300;
             this.randFoodPosition = new Random();
@@ -22,6 +23,7 @@ namespace Snake
         public bool GameOver { get; set; }
         private ConsoleKey currentKey;
         private ConsoleKey lastKey;
+        private ConsoleKey lastDirectionKey;
         private int points;
         private int speed;
         private int foodPositionX;
@@ -32,7 +34,7 @@ namespace Snake
         public void StartGame()
         {
             Snake snake = new Snake(1, 1);
-            snake.SnakeTail = Snake.InitializeSnake(3);
+            snake.SnakeTail = Snake.InitializeSnake(2);
             this.points = 20;
             this.GameOver = false;
             this.currentKey = ConsoleKey.Delete;
@@ -66,7 +68,7 @@ namespace Snake
                 Environment.DrawArea(this.level);
                 DrawPoints();
                 Environment.DrawFood(this.foodPositionX, this.foodPositionY);
-                snake.Update(currentKey);
+                snake.Update(currentKey, lastDirectionKey);
                 snake.Draw();
                 if (snake.CollisionWithSnake())
                 {
@@ -84,7 +86,7 @@ namespace Snake
                     this.GameOver = true;
                     break;
                 }
-                
+                lastDirectionKey = lastKey;
                 Thread.Sleep(this.speed);
             }
         }
@@ -95,9 +97,10 @@ namespace Snake
             Console.WriteLine("Please enter level number");
             Console.WriteLine("1 - Classic");
             Console.WriteLine("2 - Tunnel");
-            Console.WriteLine("3 - Exit the game");
+            Console.WriteLine("3 - Classic Small");
+            Console.WriteLine("4 - Exit the game");
             this.level = 0;
-            while (this.level <= 0 || this.level >= 4)
+            while (this.level <= 0 || this.level >= 5)
             {
                 try
                 {
@@ -105,7 +108,7 @@ namespace Snake
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a number in range 1 -3");
+                    Console.WriteLine("Please enter a number in range 1 - 4");
                 }
                 switch (this.level)
                     {
@@ -119,9 +122,14 @@ namespace Snake
                             StartGame();
                             break;
                         case 3:
-                            return;
+                            Console.Clear();
+                            Environment.DrawArea(this.level);
+                            StartGame();
+                            break;
+                    case 4:
+                        return;
                         default:
-                        Console.WriteLine("Please enter a number in range 1 -3");
+                        Console.WriteLine("Please enter a number in range 1 - 4");
                         break;
                     }
                 
