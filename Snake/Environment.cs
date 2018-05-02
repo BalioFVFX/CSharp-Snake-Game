@@ -15,6 +15,7 @@ namespace Snake
 
         public static void DrawArea(int level)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             switch (level)
             {
                 case 1:

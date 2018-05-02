@@ -28,10 +28,10 @@ namespace Snake
         private int foodPositionY;
         private Random randFoodPosition;
         public int level { get; set; }
-
+        Snake snake = new Snake(1, 1);
         public void StartGame()
         {
-            Snake snake = new Snake(1, 1);
+            
             snake.SnakeTail = Snake.InitializeSnake(2, this.level);
             this.points = 20;
             this.GameOver = false;
@@ -127,13 +127,15 @@ namespace Snake
         public void Menu()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Please enter level number");
             Console.WriteLine("1 - Classic");
             Console.WriteLine("2 - Tunnel");
-            Console.WriteLine("3 - Classic Small");
-            Console.WriteLine("4 - Exit the game");
+            Console.WriteLine("3 - Classic small");
+            Console.WriteLine("4 - Snake color");
+            Console.WriteLine("5 - Exit the game");
             this.level = 0;
-            while (this.level <= 0 || this.level >= 5)
+            while (this.level <= 0 || this.level >= 6)
             {
                 try
                 {
@@ -160,6 +162,11 @@ namespace Snake
                             StartGame();
                             break;
                     case 4:
+                        Console.Clear();
+                        snake.SetColor();
+                        Menu();
+                        break;
+                    case 5:
                         return;
                         default:
                         Console.WriteLine("Please enter a number in range 1 - 4");

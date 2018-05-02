@@ -16,6 +16,7 @@ namespace Snake
 
         public int PositionX { get; set; }
         public int PositionY { get; set; }
+        private ConsoleColor Color;
         public List<Snake> SnakeTail { get; set; }
 
         public void Update(ConsoleKey currentKey, ConsoleKey lastDirectionKey)
@@ -55,10 +56,43 @@ namespace Snake
 
         public void Draw()
         {
+            Console.ForegroundColor = Color;
             foreach (var snakePart in this.SnakeTail)
             {
                 Console.SetCursorPosition(snakePart.PositionX, snakePart.PositionY);
                 Console.Write("*");
+            }
+        }
+
+        public void SetColor()
+        {
+            Console.WriteLine("Select snake color 1 - 4");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("1 - White");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("2 - Magenta");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("3 - Dark Green");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("4 - Green");
+            Console.ForegroundColor = ConsoleColor.White;
+            switch (int.Parse(Console.ReadLine()))
+            {
+                case 1:
+                    Color = ConsoleColor.White;
+                    break;
+                case 2:
+                    Color = ConsoleColor.Magenta;
+                    break;
+                case 3:
+                    Color = ConsoleColor.DarkGreen;
+                    break;
+                case 4:
+                    Color = ConsoleColor.Green;
+                    break;
+                default:
+                    Color = ConsoleColor.Gray;
+                    break;
             }
         }
 
