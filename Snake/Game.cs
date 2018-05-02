@@ -16,8 +16,6 @@ namespace Snake
             this.points = 20;
             this.speed = 300;
             this.randFoodPosition = new Random();
-            this.foodPositionX = this.randFoodPosition.Next(31, 90);
-            this.foodPositionY = this.randFoodPosition.Next(3, 23);
         }
 
         public bool GameOver { get; set; }
@@ -39,6 +37,24 @@ namespace Snake
             this.GameOver = false;
             this.currentKey = ConsoleKey.Delete;
             this.speed = 300;
+
+            switch (this.level)
+            {
+                case 1:
+                    this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                    this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                    break;
+                case 2:
+                    this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                    this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                    break;
+                case 3:
+                    this.foodPositionX = this.randFoodPosition.Next(41, 77);
+                    this.foodPositionY = this.randFoodPosition.Next(6, 20);
+                    break;
+                default:
+                    break;
+            }
 
             while (this.GameOver == false)
             {
@@ -77,9 +93,26 @@ namespace Snake
                 }
                 if (snake.CollisionWithFood(foodPositionX, foodPositionY))
                 {
-                    this.points += 10;
-                    this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                    this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                    switch (this.level)
+                    {
+                        case 1:
+                            this.points += 10;
+                            this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                            this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                            break;
+                        case 2:
+                            this.points += 10;
+                            this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                            this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                            break;
+                        case 3:
+                            this.points += 10;
+                            this.foodPositionX = this.randFoodPosition.Next(41, 77);
+                            this.foodPositionY = this.randFoodPosition.Next(6, 20);
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 if (snake.CollisionWithWall(this.level))
                 {
