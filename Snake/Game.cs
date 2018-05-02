@@ -34,7 +34,7 @@ namespace Snake
         public void StartGame()
         {
             Snake snake = new Snake(1, 1);
-            snake.SnakeTail = Snake.InitializeSnake(2);
+            snake.SnakeTail = Snake.InitializeSnake(2, this.level);
             this.points = 20;
             this.GameOver = false;
             this.currentKey = ConsoleKey.Delete;

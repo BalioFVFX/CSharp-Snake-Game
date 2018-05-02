@@ -125,14 +125,26 @@ namespace Snake
             return false;
         }
 
-        public static List<Snake> InitializeSnake(int snakeLength)
+        public static List<Snake> InitializeSnake(int snakeLength, int level)
         {
             List<Snake> snakeTail = new List<Snake>();
-            for (int i = 0; i < snakeLength; i++)
+            if(level < 3)
             {
-                Snake snake = new Snake(31 + i, 3);
-                snakeTail.Add(snake);
+                for (int i = 0; i < snakeLength; i++)
+                {
+                    Snake snake = new Snake(31 + i, 3);
+                    snakeTail.Add(snake);
+                }
             }
+            else
+            {
+                for (int i = 0; i < snakeLength; i++)
+                {
+                    Snake snake = new Snake(42 + i, 6);
+                    snakeTail.Add(snake);
+                }
+            }
+
 
             return snakeTail;
         }
