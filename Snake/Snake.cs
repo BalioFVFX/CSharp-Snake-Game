@@ -117,8 +117,16 @@ namespace Snake
                         return true;
                     }
                     break;
-
-                default:
+                case 3:
+                    if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 41 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 5 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 77 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 20)
+                    {
+                        return true;
+                    }
+                    break;
+                        default:
                     break;
             }
             
