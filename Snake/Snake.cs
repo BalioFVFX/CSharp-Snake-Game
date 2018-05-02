@@ -12,6 +12,7 @@ namespace Snake
             this.PositionX = x;
             this.PositionY = y;
             this.SnakeTail = new List<Snake>();
+            this.Color = ConsoleColor.White;
         }
 
         public int PositionX { get; set; }
