@@ -82,6 +82,7 @@ namespace Snake
 
                 Console.Clear();
                 Environment.DrawArea(this.level);
+                DrawSpeed();
                 DrawPoints();
                 Environment.DrawFood(this.foodPositionX, this.foodPositionY);
                 currentKey = snake.Update(currentKey, lastDirectionKey);
@@ -183,6 +184,57 @@ namespace Snake
         {
             Console.SetCursorPosition(100, 1);
             Console.Write("Points: {0}", this.points);
+        }
+
+        private void DrawSpeed()
+        {
+            Console.SetCursorPosition(100, 3);
+            int convertedSpeed = 0;
+            switch (this.speed)
+            {
+                case 300:
+                    convertedSpeed = 1;
+                    break;
+                case 260:
+                    convertedSpeed = 2;
+                    break;
+                case 220:
+                    convertedSpeed = 3;
+                    break;
+                case 180:
+                    convertedSpeed = 4;
+                    break;
+                case 140:
+                    convertedSpeed = 5;
+                    break;
+                case 100:
+                    convertedSpeed = 6;
+                    break;
+                case 90:
+                    convertedSpeed = 7;
+                    break;
+                case 80:
+                    convertedSpeed = 8;
+                    break;
+                case 70:
+                    convertedSpeed = 9;
+                    break;
+                case 60:
+                    convertedSpeed = 10;
+                    break;
+                case 50:
+                    convertedSpeed = 11;
+                    break;
+                case 40:
+                    convertedSpeed = 12;
+                    break;
+                case 30:
+                    convertedSpeed = 13;
+                    break;
+                default:
+                    break;
+            }
+            Console.Write("Speed: " + convertedSpeed);
         }
     }
 }
