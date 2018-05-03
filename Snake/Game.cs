@@ -77,14 +77,14 @@ namespace Snake
                     }
                     this.speed = 300;
 
-                    this.lastKey = this.currentKey;
+
                 }
 
                 Console.Clear();
                 Environment.DrawArea(this.level);
                 DrawPoints();
                 Environment.DrawFood(this.foodPositionX, this.foodPositionY);
-                snake.Update(currentKey, lastDirectionKey);
+                currentKey = snake.Update(currentKey, lastDirectionKey);
                 snake.Draw();
                 if (snake.CollisionWithSnake())
                 {
@@ -119,9 +119,11 @@ namespace Snake
                     this.GameOver = true;
                     break;
                 }
-                lastDirectionKey = lastKey;
                 Thread.Sleep(this.speed);
+                this.lastKey = this.currentKey;
+                lastDirectionKey = currentKey;
             }
+            
         }
 
         public void Menu()
