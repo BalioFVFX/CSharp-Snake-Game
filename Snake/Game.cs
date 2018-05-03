@@ -45,8 +45,27 @@ namespace Snake
                     this.foodPositionY = this.randFoodPosition.Next(3, 23);
                     break;
                 case 2:
-                    this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                    this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                    while (true)
+                    {
+                        this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                        this.foodPositionY = this.randFoodPosition.Next(3, 23);
+
+                        if (foodPositionX >= 50 && foodPositionX <= 70 && foodPositionY == 10)
+                        {
+                            this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                            this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                        }
+                        else if(foodPositionX >= 50 && foodPositionX <= 70 && foodPositionY == 15)
+                        {
+                            this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                            this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    
                     break;
                 case 3:
                     this.foodPositionX = this.randFoodPosition.Next(41, 77);
