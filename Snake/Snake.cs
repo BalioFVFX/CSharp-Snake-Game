@@ -20,39 +20,70 @@ namespace Snake
         private ConsoleColor Color;
         public List<Snake> SnakeTail { get; set; }
 
-        public void Update(ConsoleKey currentKey, ConsoleKey lastDirectionKey)
+        public ConsoleKey Update(ConsoleKey currentKey, ConsoleKey lastDirectionKey)
         {
             if (currentKey == ConsoleKey.RightArrow)
             {
+
+                if(lastDirectionKey == ConsoleKey.LeftArrow)
+                {
+                    currentKey = lastDirectionKey;
+                    return currentKey;
+                }
+
                 this.SnakeTail.RemoveAt(0);
                 Snake newSnake = new Snake(this.SnakeTail[this.SnakeTail.Count - 1].PositionX, this.SnakeTail[this.SnakeTail.Count - 1].PositionY);
                 newSnake.PositionX++;
                 this.SnakeTail.Add(newSnake);
+                
             }
 
             else if (currentKey == ConsoleKey.DownArrow)
             {
+
+                if (lastDirectionKey == ConsoleKey.UpArrow)
+                {
+                    currentKey = lastDirectionKey;
+                    return currentKey;
+                }
+
                 this.SnakeTail.RemoveAt(0);
                 Snake newSnake = new Snake(this.SnakeTail[this.SnakeTail.Count - 1].PositionX, this.SnakeTail[this.SnakeTail.Count - 1].PositionY);
                 newSnake.PositionY++;
                 this.SnakeTail.Add(newSnake);
+                return currentKey;
             }
 
-            else if (currentKey == ConsoleKey.LeftArrow && lastDirectionKey != ConsoleKey.RightArrow)
+            else if (currentKey == ConsoleKey.LeftArrow)
             {
+                if(lastDirectionKey == ConsoleKey.RightArrow)
+                {
+                    currentKey = lastDirectionKey;
+                    return currentKey;
+                }
+
                 this.SnakeTail.RemoveAt(0);
                 Snake newSnake = new Snake(this.SnakeTail[this.SnakeTail.Count - 1].PositionX, this.SnakeTail[this.SnakeTail.Count - 1].PositionY);
                 newSnake.PositionX--;
                 this.SnakeTail.Add(newSnake);
+                return currentKey;
             }
 
             else if (currentKey == ConsoleKey.UpArrow)
             {
+                if (lastDirectionKey == ConsoleKey.DownArrow)
+                {
+                    currentKey = lastDirectionKey;
+                    return currentKey;
+                }
+
                 this.SnakeTail.RemoveAt(0);
                 Snake newSnake = new Snake(this.SnakeTail[this.SnakeTail.Count - 1].PositionX, this.SnakeTail[this.SnakeTail.Count - 1].PositionY);
                 newSnake.PositionY--;
                 this.SnakeTail.Add(newSnake);
+                return currentKey;
             }
+            return currentKey;
         }
 
         public void Draw()
