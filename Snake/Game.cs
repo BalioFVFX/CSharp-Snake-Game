@@ -37,44 +37,7 @@ namespace Snake
             this.GameOver = false;
             this.currentKey = ConsoleKey.Delete;
             this.speed = 300;
-
-            switch (this.level)
-            {
-                case 1:
-                    this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                    this.foodPositionY = this.randFoodPosition.Next(3, 23);
-                    break;
-                case 2:
-                    while (true)
-                    {
-                        this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                        this.foodPositionY = this.randFoodPosition.Next(3, 23);
-
-                        if (foodPositionX >= 50 && foodPositionX <= 70 && foodPositionY == 10)
-                        {
-                            this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                            this.foodPositionY = this.randFoodPosition.Next(3, 23);
-                        }
-                        else if(foodPositionX >= 50 && foodPositionX <= 70 && foodPositionY == 15)
-                        {
-                            this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                            this.foodPositionY = this.randFoodPosition.Next(3, 23);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    
-                    break;
-                case 3:
-                    this.foodPositionX = this.randFoodPosition.Next(41, 77);
-                    this.foodPositionY = this.randFoodPosition.Next(6, 20);
-                    break;
-                default:
-                    break;
-            }
-
+            GenerateFood();
             while (this.GameOver == false)
             {
                 if (Console.KeyAvailable)
@@ -111,28 +74,10 @@ namespace Snake
                     this.GameOver = true;
                     break;
                 }
-                if (snake.CollisionWithFood(foodPositionX, foodPositionY))
+                if (snake.CollisionWithFood(this.foodPositionX, this.foodPositionY))
                 {
-                    switch (this.level)
-                    {
-                        case 1:
-                            this.points += 10;
-                            this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                            this.foodPositionY = this.randFoodPosition.Next(3, 23);
-                            break;
-                        case 2:
-                            this.points += 10;
-                            this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                            this.foodPositionY = this.randFoodPosition.Next(3, 23);
-                            break;
-                        case 3:
-                            this.points += 10;
-                            this.foodPositionX = this.randFoodPosition.Next(42, 77);
-                            this.foodPositionY = this.randFoodPosition.Next(6, 20);
-                            break;
-                        default:
-                            break;
-                    }
+                    this.points += 10;
+                    GenerateFood();
                 }
                 if (snake.CollisionWithWall(this.level))
                 {
@@ -144,6 +89,40 @@ namespace Snake
                 lastDirectionKey = currentKey;
             }
             
+        }
+
+        public void GenerateFood()
+        {
+            switch (this.level)
+            {
+                case 1:
+                    this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                    this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                    break;
+                case 2:
+                    while (true)
+                    {
+                        this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                        this.foodPositionY = this.randFoodPosition.Next(3, 23);
+
+                        if (this.foodPositionX < 50 || this.foodPositionX > 70 && this.foodPositionY != 10)
+                        {
+                            break;
+                        }
+                        else if (this.foodPositionX < 50 || this.foodPositionX > 70 && this.foodPositionY != 15)
+                        {
+                            break;
+                        }
+                    }
+
+                    break;
+                case 3:
+                    this.foodPositionX = this.randFoodPosition.Next(41, 77);
+                    this.foodPositionY = this.randFoodPosition.Next(6, 20);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void Menu()
