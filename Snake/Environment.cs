@@ -139,7 +139,7 @@ namespace Snake
 
         public static void SetColor()
         {
-            Console.WriteLine("Select snake color 1 - 4");
+            Console.WriteLine("Select environment color 1 - 4");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("1 - Blue");
             Console.ForegroundColor = ConsoleColor.Cyan;
