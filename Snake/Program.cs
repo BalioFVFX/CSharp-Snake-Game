@@ -10,16 +10,13 @@ namespace Snake
         static void Main(string[] args)
         {
             Console.Title = "Snake Game";
-            
             Console.CursorVisible = false;
 
             Game game = new Game();
 
-           
-
             game.Menu();
 
-            while (game.level != 5)
+            while (game.level != 6)
             {
                 if(game.GameOver == false)
                 {

@@ -7,6 +7,8 @@ namespace Snake
     class Environment
     {
 
+        private static ConsoleColor Color;
+
         public static void DrawFood(int x, int y)
         {
             Console.SetCursorPosition(x, y);
@@ -15,7 +17,7 @@ namespace Snake
 
         public static void DrawArea(int level)
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = Color;
             switch (level)
             {
                 case 1:
@@ -47,6 +49,7 @@ namespace Snake
                         Console.Write("#");
                     }
 
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.SetCursorPosition(100, 27);
                     Console.Write("By: BalioFVFX");
                     break;
@@ -91,6 +94,7 @@ namespace Snake
                         Console.Write("#");
                     }
 
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.SetCursorPosition(100, 27);
                     Console.Write("By: BalioFVFX");
                     break;
@@ -123,10 +127,99 @@ namespace Snake
                         Console.Write("#");
                     }
 
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.SetCursorPosition(100, 27);
                     Console.Write("By: BalioFVFX");
                     break;
                 default:
+                    break;
+            }
+            
+        }
+
+        public static void SetColor()
+        {
+            Console.WriteLine("Select snake color 1 - 4");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("1 - Blue");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("2 - Cyan");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("3 - Dark Blue");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("4 - Dark Cyan");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("5 - Dark Gray");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("6 - Dark Green");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("7 - Dark Magenta");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("8 - Dark Red");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("9 - Dark Yellow");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("10 - Gray");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("11 - Green");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("12 - Magenta");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("13 - Red");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("14 - White");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("15 - Yellow");
+            Console.ForegroundColor = ConsoleColor.White;
+            switch (int.Parse(Console.ReadLine()))
+            {
+                case 1:
+                    Color = ConsoleColor.Blue;
+                    break;
+                case 2:
+                    Color = ConsoleColor.Cyan;
+                    break;
+                case 3:
+                    Color = ConsoleColor.DarkBlue;
+                    break;
+                case 4:
+                    Color = ConsoleColor.DarkCyan;
+                    break;
+                case 5:
+                    Color = ConsoleColor.DarkGray;
+                    break;
+                case 6:
+                    Color = ConsoleColor.DarkGreen;
+                    break;
+                case 7:
+                    Color = ConsoleColor.DarkMagenta;
+                    break;
+                case 8:
+                    Color = ConsoleColor.DarkRed;
+                    break;
+                case 9:
+                    Color = ConsoleColor.DarkYellow;
+                    break;
+                case 10:
+                    Color = ConsoleColor.Gray;
+                    break;
+                case 11:
+                    Color = ConsoleColor.Green;
+                    break;
+                case 12:
+                    Color = ConsoleColor.Magenta;
+                    break;
+                case 13:
+                    Color = ConsoleColor.Red;
+                    break;
+                case 14:
+                    Color = ConsoleColor.White;
+                    break;
+                case 15:
+                    Color = ConsoleColor.Yellow;
+                    break;
+                default:
+                    Color = ConsoleColor.Gray;
                     break;
             }
         }

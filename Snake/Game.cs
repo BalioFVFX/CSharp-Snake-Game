@@ -134,9 +134,10 @@ namespace Snake
             Console.WriteLine("2 - Tunnel");
             Console.WriteLine("3 - Classic small");
             Console.WriteLine("4 - Snake color");
-            Console.WriteLine("5 - Exit the game");
+            Console.WriteLine("5 - Environment color");
+            Console.WriteLine("6 - Exit the game");
             this.level = 0;
-            while (this.level <= 0 || this.level >= 6)
+            while (this.level <= 0 || this.level >= 7)
             {
                 try
                 {
@@ -144,7 +145,7 @@ namespace Snake
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a number in range 1 - 4");
+                    Console.WriteLine("Please enter a number in range 1 - 6");
                 }
                 switch (this.level)
                     {
@@ -168,13 +169,16 @@ namespace Snake
                         Menu();
                         break;
                     case 5:
+                        Console.Clear();
+                        Environment.SetColor();
+                        Menu();
+                        break;
+                    case 6:
                         return;
                         default:
-                        Console.WriteLine("Please enter a number in range 1 - 4");
+                        Console.WriteLine("Please enter a number in range 1 - 6");
                         break;
                     }
-                
-
             }
         }
 
