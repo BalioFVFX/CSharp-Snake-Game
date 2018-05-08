@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading;
 
@@ -16,6 +17,7 @@ namespace Snake
             this.points = 20;
             this.speed = 300;
             this.randFoodPosition = new Random();
+            this.bestScore = 0;
         }
 
         public bool GameOver { get; set; }
@@ -27,6 +29,7 @@ namespace Snake
         private int foodPositionX;
         private int foodPositionY;
         private Random randFoodPosition;
+        private int bestScore;
         public int level { get; set; }
         Snake snake = new Snake(1, 1);
         public void StartGame()
@@ -38,6 +41,11 @@ namespace Snake
             this.currentKey = ConsoleKey.Delete;
             this.speed = 300;
             GenerateFood();
+
+            // Get the best score for the current level
+            this.bestScore = int.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt"));
+
+
             while (this.GameOver == false)
             {
                 if (Console.KeyAvailable)
@@ -88,7 +96,10 @@ namespace Snake
                 this.lastKey = this.currentKey;
                 lastDirectionKey = currentKey;
             }
-            
+            if(points > bestScore)
+            {
+                File.WriteAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt", points.ToString());
+            }
         }
 
         public void GenerateFood()
