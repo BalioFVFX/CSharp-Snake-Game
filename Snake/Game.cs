@@ -160,9 +160,10 @@ namespace Snake
             Console.WriteLine("3 - Classic small");
             Console.WriteLine("4 - Snake color");
             Console.WriteLine("5 - Environment color");
-            Console.WriteLine("6 - Exit the game");
+            Console.WriteLine("6 - Scores");
+            Console.WriteLine("7 - Exit the game");
             this.level = 0;
-            while (this.level <= 0 || this.level >= 7)
+            while (this.level <= 0 || this.level >= 8)
             {
                 try
                 {
@@ -170,7 +171,7 @@ namespace Snake
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a number in range 1 - 6");
+                    Console.WriteLine("Please enter a number in range 1 - 7");
                 }
                 switch (this.level)
                     {
@@ -199,9 +200,14 @@ namespace Snake
                         Menu();
                         break;
                     case 6:
+                        Console.Clear();
+                        DrawScores();
+                        Menu();
+                        break;
+                    case 7:
                         return;
                         default:
-                        Console.WriteLine("Please enter a number in range 1 - 6");
+                        Console.WriteLine("Please enter a number in range 1 - 7");
                         break;
                     }
             }
@@ -262,6 +268,14 @@ namespace Snake
                     break;
             }
             Console.Write("Speed: " + convertedSpeed);
+        }
+
+        private void DrawScores()
+        {
+            Console.WriteLine("Classic - " + File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + 1 + ".txt"));
+            Console.WriteLine("Tunnel - " + File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + 2 + ".txt"));
+            Console.WriteLine("Classic small - " + File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + 3 + ".txt"));
+            Console.ReadKey();
         }
     }
 }
