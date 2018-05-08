@@ -7,7 +7,7 @@ namespace Snake
     class Environment
     {
 
-        private static ConsoleColor Color;
+        private static ConsoleColor Color = ConsoleColor.White;
 
         public static void DrawFood(int x, int y)
         {
