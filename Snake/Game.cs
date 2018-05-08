@@ -96,10 +96,24 @@ namespace Snake
                 this.lastKey = this.currentKey;
                 lastDirectionKey = currentKey;
             }
-            if(points > bestScore)
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(51, 10);
+            Console.Write("Game Over!");
+            if (points > bestScore)
             {
                 File.WriteAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt", points.ToString());
+                Console.SetCursorPosition(51, 11);
+                Console.Write("New record: " + points);
             }
+            else
+            {
+                Console.SetCursorPosition(51, 11);
+                Console.Write("Current score: " + points);
+                Console.SetCursorPosition(51, 12);
+                Console.Write("Best score: " + bestScore);
+            }
+            Thread.Sleep(3000);
         }
 
         public void GenerateFood()
