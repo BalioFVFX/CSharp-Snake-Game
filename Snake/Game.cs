@@ -87,6 +87,7 @@ namespace Snake
                     this.points += 10;
                     GenerateFood();
                 }
+                snake.DrawLength();
                 if (snake.CollisionWithWall(this.level))
                 {
                     this.GameOver = true;

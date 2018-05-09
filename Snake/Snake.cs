@@ -85,7 +85,11 @@ namespace Snake
             }
             return currentKey;
         }
-
+        public void DrawLength()
+        {
+            Console.SetCursorPosition(100, 5);
+            Console.Write("Snake length: {0}", SnakeTail.Count);
+        }
         public void Draw()
         {
             Console.ForegroundColor = Color;
