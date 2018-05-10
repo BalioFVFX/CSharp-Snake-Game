@@ -93,6 +93,7 @@ namespace Snake
                     this.GameOver = true;
                     break;
                 }
+                
                 Thread.Sleep(this.speed);
                 this.lastKey = this.currentKey;
                 lastDirectionKey = currentKey;

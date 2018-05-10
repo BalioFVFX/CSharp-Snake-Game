@@ -210,9 +210,9 @@ namespace Snake
             if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX == foodPositionX && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == foodPositionY)
             {
                 Thread soundThread = new Thread(PlaySound);
-                Snake tail = new Snake(this.SnakeTail[this.SnakeTail.Count - 1].PositionX, this.SnakeTail[this.SnakeTail.Count - 1].PositionY);
+                Snake tail = new Snake(SnakeTail[0].PositionX, SnakeTail[0].PositionY);
                 soundThread.Start();
-                this.SnakeTail.Add(tail);
+                this.SnakeTail.Insert(0, tail);
                 return true;
             }
             return false;
