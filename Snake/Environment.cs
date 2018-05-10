@@ -12,6 +12,7 @@ namespace Snake
         public static void DrawFood(int x, int y)
         {
             Console.SetCursorPosition(x, y);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("*");
         }
 
@@ -124,6 +125,40 @@ namespace Snake
                     for (int i = 41; i <= 77; i++)
                     {
                         Console.SetCursorPosition(i, 20);
+                        Console.Write("#");
+                    }
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.SetCursorPosition(100, 27);
+                    Console.Write("By: BalioFVFX");
+                    break;
+
+                case 4:
+                    // TOP
+                    for (int i = 41; i <= 55; i++)
+                    {
+                        Console.SetCursorPosition(i, 5);
+                        Console.Write("#");
+                    }
+
+                    // LEFT
+                    for (int i = 6; i <= 10; i++)
+                    {
+                        Console.SetCursorPosition(41, i);
+                        Console.WriteLine("#");
+                    }
+
+                    // RIGHT
+                    for (int i = 6; i <= 10; i++)
+                    {
+                        Console.SetCursorPosition(55, i);
+                        Console.WriteLine("#");
+                    }
+
+                    // DOWN
+                    for (int i = 41; i <= 55; i++)
+                    {
+                        Console.SetCursorPosition(i, 10);
                         Console.Write("#");
                     }
 

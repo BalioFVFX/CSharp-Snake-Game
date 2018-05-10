@@ -119,32 +119,90 @@ namespace Snake
 
         public void GenerateFood()
         {
+            bool foodIsInsideTheSnake = false;
             switch (this.level)
             {
                 case 1:
-                    this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                    this.foodPositionY = this.randFoodPosition.Next(3, 23);
-                    break;
-                case 2:
-                    while (true)
+                    do
                     {
+                        foodIsInsideTheSnake = false;
                         this.foodPositionX = this.randFoodPosition.Next(31, 90);
                         this.foodPositionY = this.randFoodPosition.Next(3, 23);
 
+                        foreach (var snakeTail in snake.SnakeTail)
+                        {
+                            if (snakeTail.PositionX == this.foodPositionX && snakeTail.PositionY == this.foodPositionY)
+                            {
+                                foodIsInsideTheSnake = true;
+                            }
+                        }
+                    }
+                    while (foodIsInsideTheSnake == false);
+                    
+                    break;
+                case 2:
+                    bool foodIsInsideTheTunnel = false;
+                    do
+                    {
+                        this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                        this.foodPositionY = this.randFoodPosition.Next(3, 23);
+                        foodIsInsideTheSnake = false;
+
+                        foreach (var snakeTail in snake.SnakeTail)
+                        {
+                            if (snakeTail.PositionX == this.foodPositionX && snakeTail.PositionY == this.foodPositionY)
+                            {
+                                foodIsInsideTheSnake = true;
+                            }
+                        }
+
                         if (this.foodPositionX < 50 || this.foodPositionX > 70 && this.foodPositionY != 10)
                         {
-                            break;
+                            foodIsInsideTheTunnel = false;
                         }
                         else if (this.foodPositionX < 50 || this.foodPositionX > 70 && this.foodPositionY != 15)
                         {
-                            break;
+                            foodIsInsideTheTunnel = false;
                         }
                     }
-
+                    while (foodIsInsideTheSnake == true && foodIsInsideTheTunnel == false);
+                        
                     break;
                 case 3:
-                    this.foodPositionX = this.randFoodPosition.Next(42, 77);
-                    this.foodPositionY = this.randFoodPosition.Next(7, 20);
+                    do
+                    {
+                        foodIsInsideTheSnake = false;
+                        this.foodPositionX = this.randFoodPosition.Next(42, 77);
+                        this.foodPositionY = this.randFoodPosition.Next(7, 20);
+
+                        foreach (var snakeTail in snake.SnakeTail)
+                        {
+                            if (snakeTail.PositionX == this.foodPositionX && snakeTail.PositionY == this.foodPositionY)
+                            {
+                                foodIsInsideTheSnake = true;
+                            }
+                        }
+                    }
+                    while (foodIsInsideTheSnake == true);
+                    
+                    break;
+
+                case 4:
+                    do
+                    {
+                        foodIsInsideTheSnake = false;
+                        this.foodPositionX = this.randFoodPosition.Next(42, 55);
+                        this.foodPositionY = this.randFoodPosition.Next(7, 10);
+
+                        foreach (var snakeTail in snake.SnakeTail)
+                        {
+                            if (snakeTail.PositionX == this.foodPositionX && snakeTail.PositionY == this.foodPositionY)
+                            {
+                                foodIsInsideTheSnake = true;
+                            }
+                        }
+                    }
+                    while (foodIsInsideTheSnake == true);
                     break;
                 default:
                     break;
@@ -159,12 +217,13 @@ namespace Snake
             Console.WriteLine("1 - Classic");
             Console.WriteLine("2 - Tunnel");
             Console.WriteLine("3 - Classic small");
-            Console.WriteLine("4 - Snake color");
-            Console.WriteLine("5 - Environment color");
-            Console.WriteLine("6 - Scores");
-            Console.WriteLine("7 - Exit the game");
+            Console.WriteLine("4 - Test level");
+            Console.WriteLine("5 - Snake color");
+            Console.WriteLine("6 - Environment color");
+            Console.WriteLine("7 - Scores");
+            Console.WriteLine("8 - Exit the game");
             this.level = 0;
-            while (this.level <= 0 || this.level >= 8)
+            while (this.level <= 0 || this.level >= 9)
             {
                 try
                 {
@@ -192,20 +251,25 @@ namespace Snake
                             break;
                     case 4:
                         Console.Clear();
-                        snake.SetColor();
-                        Menu();
+                        Environment.DrawArea(this.level);
+                        StartGame();
                         break;
                     case 5:
                         Console.Clear();
-                        Environment.SetColor();
+                        snake.SetColor();
                         Menu();
                         break;
                     case 6:
                         Console.Clear();
-                        DrawScores();
+                        Environment.SetColor();
                         Menu();
                         break;
                     case 7:
+                        Console.Clear();
+                        DrawScores();
+                        Menu();
+                        break;
+                    case 8:
                         return;
                         default:
                         Console.WriteLine("Please enter a number in range 1 - 7");
