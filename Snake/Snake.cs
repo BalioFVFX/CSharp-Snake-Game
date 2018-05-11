@@ -25,7 +25,7 @@ namespace Snake
             if (currentKey == ConsoleKey.RightArrow)
             {
 
-                if(lastDirectionKey == ConsoleKey.LeftArrow)
+                if (lastDirectionKey == ConsoleKey.LeftArrow)
                 {
                     currentKey = lastDirectionKey;
                     return currentKey;
@@ -35,7 +35,7 @@ namespace Snake
                 Snake newSnake = new Snake(this.SnakeTail[this.SnakeTail.Count - 1].PositionX, this.SnakeTail[this.SnakeTail.Count - 1].PositionY);
                 newSnake.PositionX++;
                 this.SnakeTail.Add(newSnake);
-                
+
             }
 
             else if (currentKey == ConsoleKey.DownArrow)
@@ -56,7 +56,7 @@ namespace Snake
 
             else if (currentKey == ConsoleKey.LeftArrow)
             {
-                if(lastDirectionKey == ConsoleKey.RightArrow)
+                if (lastDirectionKey == ConsoleKey.RightArrow)
                 {
                     currentKey = lastDirectionKey;
                     return currentKey;
@@ -223,21 +223,21 @@ namespace Snake
             switch (level)
             {
                 case 1:
-                if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 30 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 2 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 90 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 24)
+                    if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 30 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 2 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 90 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 24)
                     {
                         return true;
                     }
                     break;
                 case 2:
-                if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 30 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 2 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 90 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 24 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 50 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 10 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 50 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 15)
+                    if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 30 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 2 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 90 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 24 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 50 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 10 ||
+                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 50 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 15)
                     {
                         return true;
                     }
@@ -251,17 +251,17 @@ namespace Snake
                         return true;
                     }
                     break;
-                        default:
+                default:
                     break;
             }
-            
+
             return false;
         }
 
         public static List<Snake> InitializeSnake(int snakeLength, int level)
         {
             List<Snake> snakeTail = new List<Snake>();
-            if(level < 3)
+            if (level < 3)
             {
                 for (int i = 0; i < snakeLength; i++)
                 {
