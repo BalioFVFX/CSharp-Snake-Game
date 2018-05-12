@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -262,7 +263,7 @@ namespace Snake
                         break;
                     case 5:
                         Console.Clear();
-                        StartLevelEditor();
+                        StartLevelEditorMenu();
                         Menu();
                         break;
                     case 6:
@@ -354,7 +355,7 @@ namespace Snake
             Console.ReadKey();
         }
 
-        private void StartLevelEditor()
+        private void StartLevelEditorMenu()
         {
             Console.Clear();
             Console.WriteLine("Select a command: ");
@@ -363,23 +364,69 @@ namespace Snake
             Console.WriteLine("3. Delete level");
             int command = int.Parse(Console.ReadLine());
             
-            ConsoleKey editKey = ConsoleKey.Multiply;
+            
             if(command == 1)
             {
                 Console.Write("New level name: ");
                 string levelName = Console.ReadLine();
 
                 File.CreateText(Directory.GetCurrentDirectory() + @"\levels\" + levelName + ".txt");
+                StartLevelEditor(levelName);
             }
-            Console.CursorVisible = true;
-            Console.Clear();
+            else if(command == 2)
+            {
+                Console.Write("Enter the name of the level you want to edit: ");
+                string levelName = Console.ReadLine();
+                StartLevelEditor(levelName);
+            }
+            
             Console.WriteLine("Controls: ");
             Console.WriteLine("Use arrows to navigate");
+            Console.WriteLine("Use enter to place a wall");
+            Console.WriteLine("Use ESC to save and exit");
+        }
+
+        private void StartLevelEditor(string fileName)
+        {
+            ConsoleKey editKey = ConsoleKey.Multiply;
+            Console.CursorVisible = true;
+            Console.Clear();
+            DrawLevel(fileName);
             while (true)
             {
                 editKey = UpdateLevelEditorCursor();
 
-                
+                if(editKey == ConsoleKey.Enter)
+                {
+                    Console.Write("#");
+                    using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt"))
+                    {
+                        sw.WriteLine(positionX);
+                        sw.WriteLine(positionY);
+                    }
+                }
+
+            }
+        }
+
+        private void DrawLevel(string fileName)
+        {
+            Console.Clear();
+            int[] wallCoordinates = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt").Select(int.Parse).ToArray();
+            List<Dictionary<int, int>> levelList = new List<Dictionary<int, int>>();
+
+            for (int i = 0; i < wallCoordinates.Length; i += 2)
+            {
+                Dictionary<int, int> currentCoordinates = new Dictionary<int, int>();
+
+                currentCoordinates.Add(wallCoordinates[i], wallCoordinates[i + 1]);
+                levelList.Add(currentCoordinates);
+            }
+
+            for (int i = 0; i < levelList.Count; i++)
+            {
+                Console.SetCursorPosition(levelList[i].First().Key, levelList[i].First().Value);
+                Console.Write("#");
             }
         }
 
