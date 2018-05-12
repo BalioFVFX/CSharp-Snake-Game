@@ -18,6 +18,8 @@ namespace Snake
             this.speed = 300;
             this.randFoodPosition = new Random();
             this.bestScore = 0;
+            this.positionX = 0;
+            this.positionY = 0;
         }
 
         public bool GameOver { get; set; }
@@ -30,6 +32,8 @@ namespace Snake
         private int foodPositionY;
         private Random randFoodPosition;
         private int bestScore;
+        private int positionX;
+        private int positionY;
         public int level { get; set; }
         Snake snake = new Snake(1, 1);
         public void StartGame()
@@ -219,12 +223,13 @@ namespace Snake
             Console.WriteLine("2 - Tunnel");
             Console.WriteLine("3 - Classic small");
             Console.WriteLine("4 - Test level");
-            Console.WriteLine("5 - Snake color");
-            Console.WriteLine("6 - Environment color");
-            Console.WriteLine("7 - Scores");
-            Console.WriteLine("8 - Exit the game");
+            Console.WriteLine("5 - Level editor");
+            Console.WriteLine("6 - Snake color");
+            Console.WriteLine("7 - Environment color");
+            Console.WriteLine("8 - Scores");
+            Console.WriteLine("9 - Exit the game");
             this.level = 0;
-            while (this.level <= 0 || this.level >= 9)
+            while (this.level <= 0 || this.level >= 10)
             {
                 try
                 {
@@ -232,7 +237,7 @@ namespace Snake
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a number in range 1 - 7");
+                    Console.WriteLine("Please enter a number in range 1 - 9");
                 }
                 switch (this.level)
                     {
@@ -257,23 +262,28 @@ namespace Snake
                         break;
                     case 5:
                         Console.Clear();
-                        snake.SetColor();
+                        StartLevelEditor();
                         Menu();
                         break;
                     case 6:
                         Console.Clear();
-                        Environment.SetColor();
+                        snake.SetColor();
                         Menu();
                         break;
                     case 7:
                         Console.Clear();
-                        DrawScores();
+                        Environment.SetColor();
                         Menu();
                         break;
                     case 8:
+                        Console.Clear();
+                        DrawScores();
+                        Menu();
+                        break;
+                    case 9:
                         return;
                         default:
-                        Console.WriteLine("Please enter a number in range 1 - 7");
+                        Console.WriteLine("Please enter a number in range 1 - 9");
                         break;
                     }
             }
@@ -342,6 +352,64 @@ namespace Snake
             Console.WriteLine("Tunnel - " + File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + 2 + ".txt"));
             Console.WriteLine("Classic small - " + File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + 3 + ".txt"));
             Console.ReadKey();
+        }
+
+        private void StartLevelEditor()
+        {
+            Console.Clear();
+            Console.WriteLine("Select a command: ");
+            Console.WriteLine("1. Create a new level");
+            Console.WriteLine("2. Edit level");
+            Console.WriteLine("3. Delete level");
+            int command = int.Parse(Console.ReadLine());
+            
+            ConsoleKey editKey = ConsoleKey.Multiply;
+            if(command == 1)
+            {
+                Console.Write("New level name: ");
+                string levelName = Console.ReadLine();
+
+                File.CreateText(Directory.GetCurrentDirectory() + @"\levels\" + levelName + ".txt");
+            }
+            Console.CursorVisible = true;
+            Console.Clear();
+            Console.WriteLine("Controls: ");
+            Console.WriteLine("Use arrows to navigate");
+            while (true)
+            {
+                editKey = UpdateLevelEditorCursor();
+
+                
+            }
+        }
+
+        private ConsoleKey UpdateLevelEditorCursor()
+        {
+            currentKey = ConsoleKey.Multiply;
+            if (Console.KeyAvailable)
+            {
+                currentKey = Console.ReadKey(true).Key;
+            }
+
+            if (currentKey == ConsoleKey.RightArrow)
+            {
+                positionX++;
+            }
+            else if (currentKey == ConsoleKey.DownArrow)
+            {
+                positionY++;
+            }
+            else if (currentKey == ConsoleKey.LeftArrow)
+            {
+                positionX--;
+            }
+            else if (currentKey == ConsoleKey.UpArrow)
+            {
+                positionY--;
+            }
+
+            Console.SetCursorPosition(positionX, positionY);
+            return currentKey;
         }
     }
 }
