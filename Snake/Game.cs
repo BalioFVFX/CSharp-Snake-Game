@@ -372,7 +372,7 @@ namespace Snake
                 Console.Write("New level name: ");
                 string levelName = Console.ReadLine();
 
-                File.CreateText(Directory.GetCurrentDirectory() + @"\levels\" + levelName + ".txt");
+                File.CreateText(Directory.GetCurrentDirectory() + @"\levels\" + levelName + ".txt").Close();
                 StartLevelEditor(levelName);
             }
             else if(command == 2)
