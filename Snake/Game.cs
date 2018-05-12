@@ -21,6 +21,7 @@ namespace Snake
             this.bestScore = 0;
             this.positionX = 0;
             this.positionY = 0;
+            this.customLevel = new List<Dictionary<int, int>>();
         }
 
         public bool GameOver { get; set; }
@@ -35,6 +36,7 @@ namespace Snake
         private int bestScore;
         private int positionX;
         private int positionY;
+        private List<Dictionary<int, int>> customLevel;
         public int level { get; set; }
         Snake snake = new Snake(1, 1);
         public void StartGame()
@@ -391,6 +393,7 @@ namespace Snake
             ConsoleKey editKey = ConsoleKey.Multiply;
             Console.CursorVisible = true;
             Console.Clear();
+            this.customLevel.RemoveRange(0, this.customLevel.Count);
             DrawLevel(fileName);
             while (true)
             {
@@ -404,6 +407,29 @@ namespace Snake
                         sw.WriteLine(positionX);
                         sw.WriteLine(positionY);
                     }
+                    UpdateCustomLevel(fileName);
+
+                }
+                else if(editKey == ConsoleKey.Delete)
+                {
+                    for (int i = 0; i < this.customLevel.Count; i++)
+                    {
+                        if(this.customLevel[i].First().Key == this.positionX && this.customLevel[i].First().Value == this.positionY)
+                        {
+                            this.customLevel.RemoveAt(i);
+                            File.WriteAllText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt", string.Empty);
+                            for (int j = 0; j < this.customLevel.Count; j++)
+                            {
+                                using(StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt"))
+                                {
+                                    sw.WriteLine(this.customLevel[j].First().Key);
+                                    sw.WriteLine(this.customLevel[j].First().Value);
+                                }
+                            }
+                            DrawLevel(fileName);
+                            break;
+                        }
+                    }
                 }
 
             }
@@ -412,51 +438,57 @@ namespace Snake
         private void DrawLevel(string fileName)
         {
             Console.Clear();
-            int[] wallCoordinates = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt").Select(int.Parse).ToArray();
-            List<Dictionary<int, int>> levelList = new List<Dictionary<int, int>>();
 
+            UpdateCustomLevel(fileName);
+
+            for (int i = 0; i < this.customLevel.Count; i++)
+            {
+                Console.SetCursorPosition(this.customLevel[i].First().Key, this.customLevel[i].First().Value);
+                Console.Write("#");
+            }
+        }
+
+        private void UpdateCustomLevel(string fileName)
+        {
+            int[] wallCoordinates = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt").Select(int.Parse).ToArray();
+            this.customLevel.RemoveRange(0, this.customLevel.Count);
             for (int i = 0; i < wallCoordinates.Length; i += 2)
             {
                 Dictionary<int, int> currentCoordinates = new Dictionary<int, int>();
 
                 currentCoordinates.Add(wallCoordinates[i], wallCoordinates[i + 1]);
-                levelList.Add(currentCoordinates);
+                this.customLevel.Add(currentCoordinates);
             }
 
-            for (int i = 0; i < levelList.Count; i++)
-            {
-                Console.SetCursorPosition(levelList[i].First().Key, levelList[i].First().Value);
-                Console.Write("#");
-            }
         }
 
         private ConsoleKey UpdateLevelEditorCursor()
         {
-            currentKey = ConsoleKey.Multiply;
+            ConsoleKey editKey = ConsoleKey.Multiply;
             if (Console.KeyAvailable)
             {
-                currentKey = Console.ReadKey(true).Key;
+                editKey = Console.ReadKey(true).Key;
             }
 
-            if (currentKey == ConsoleKey.RightArrow)
+            if (editKey == ConsoleKey.RightArrow)
             {
                 positionX++;
             }
-            else if (currentKey == ConsoleKey.DownArrow)
+            else if (editKey == ConsoleKey.DownArrow)
             {
                 positionY++;
             }
-            else if (currentKey == ConsoleKey.LeftArrow)
+            else if (editKey == ConsoleKey.LeftArrow)
             {
                 positionX--;
             }
-            else if (currentKey == ConsoleKey.UpArrow)
+            else if (editKey == ConsoleKey.UpArrow)
             {
                 positionY--;
             }
 
             Console.SetCursorPosition(positionX, positionY);
-            return currentKey;
+            return editKey;
         }
     }
 }
