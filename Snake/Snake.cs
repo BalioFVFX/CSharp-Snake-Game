@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -255,6 +256,19 @@ namespace Snake
                     break;
             }
 
+            return false;
+        }
+
+        public bool CollisionWithCustomWall(List<Dictionary<int, int>> customLevel)
+        {
+            foreach (var wall in customLevel)
+            {
+                if(wall.First().Key == this.SnakeTail[this.SnakeTail.Count - 1].PositionX &&
+                    wall.First().Value == this.SnakeTail[this.SnakeTail.Count - 1].PositionY)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 

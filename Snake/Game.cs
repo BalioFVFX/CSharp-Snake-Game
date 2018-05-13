@@ -101,17 +101,30 @@ namespace Snake
                     this.GameOver = true;
                     break;
                 }
+                if(this.level == 5)
+                {
+                    if (snake.CollisionWithCustomWall(this.customLevel))
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        this.GameOver = true;
+                        break;
+                    }
+                }
+                else
+                {
+                    if (snake.CollisionWithWall(this.level))
+                    {
+                        this.GameOver = true;
+                        break;
+                    }
+                }
                 if (snake.CollisionWithFood(this.foodPositionX, this.foodPositionY))
                 {
                     this.points += 10;
                     GenerateFood();
                 }
                 snake.DrawLength();
-                if (snake.CollisionWithWall(this.level))
-                {
-                    this.GameOver = true;
-                    break;
-                }
+
                 
                 Thread.Sleep(this.speed);
                 this.lastKey = this.currentKey;
