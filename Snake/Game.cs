@@ -105,7 +105,6 @@ namespace Snake
                 {
                     if (snake.CollisionWithCustomWall(this.customLevel))
                     {
-                        Console.BackgroundColor = ConsoleColor.Red;
                         this.GameOver = true;
                         break;
                     }
@@ -149,6 +148,27 @@ namespace Snake
             }
             Thread.Sleep(3000);
         }
+
+        public void GenerateFoodCustomLevel()
+        {
+            bool foodIsInsideTheSnake = false;
+
+                    do
+                    {
+                        foodIsInsideTheSnake = false;
+                        this.foodPositionX = this.randFoodPosition.Next(31, 90);
+                        this.foodPositionY = this.randFoodPosition.Next(3, 23);
+
+                        foreach (var snakeTail in snake.SnakeTail)
+                        {
+                            if (snakeTail.PositionX == this.foodPositionX && snakeTail.PositionY == this.foodPositionY)
+                            {
+                                foodIsInsideTheSnake = true;
+                            }
+                        }
+                    }
+                    while (foodIsInsideTheSnake == false);
+            }
 
         public void GenerateFood()
         {
@@ -436,6 +456,11 @@ namespace Snake
             Console.Clear();
             this.customLevel.RemoveRange(0, this.customLevel.Count);
             DrawCustomLevel(fileName);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Environment.DrawMArea();
+            Console.ForegroundColor = ConsoleColor.White;
+
             while (true)
             {
                 editKey = UpdateLevelEditorCursor();
@@ -443,6 +468,9 @@ namespace Snake
                 if(editKey == ConsoleKey.Enter)
                 {
                     Console.Write("#");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Environment.DrawMArea();
+                    Console.ForegroundColor = ConsoleColor.White;
                     using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt"))
                     {
                         sw.WriteLine(positionX);
@@ -471,6 +499,10 @@ namespace Snake
                             break;
                         }
                     }
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Environment.DrawMArea();
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
 
             }

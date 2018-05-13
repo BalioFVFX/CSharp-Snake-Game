@@ -18,10 +18,43 @@ namespace Snake
             Console.Write("*");
         }
 
+
+        public static void DrawMArea()
+        {
+            // TOP
+            Console.SetCursorPosition(35, 5);
+            for (int i = 20; i <= 70; i++)
+            {
+                Console.Write("#");
+            }
+
+            // BOTTOM
+            Console.SetCursorPosition(35, 20);
+            for (int i = 20; i <= 70; i++)
+            {
+                Console.Write("#");
+            }
+
+            // LEFT
+            
+            for (int i = 6; i <= 19; i++)
+            {
+                Console.SetCursorPosition(35, i);
+                Console.Write("#");
+            }
+
+            // RIGHT
+
+            for (int i = 6; i <= 19; i++)
+            {
+                Console.SetCursorPosition(85, i);
+                Console.Write("#");
+            }
+        }
         public static void DrawCustomArea(List<Dictionary<int, int>> customLevel)
         {
             Console.Clear();
-
+            DrawMArea();
             for (int i = 0; i < customLevel.Count; i++)
             {
                 Console.SetCursorPosition(customLevel[i].First().Key, customLevel[i].First().Value);
