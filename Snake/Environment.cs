@@ -9,7 +9,6 @@ namespace Snake
     {
 
         private static ConsoleColor Color = ConsoleColor.White;
-        public static List<Dictionary<int, int>> customLevel;
 
         public static void DrawFood(int x, int y)
         {

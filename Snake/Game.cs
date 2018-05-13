@@ -39,138 +39,188 @@ namespace Snake
         private List<Dictionary<int, int>> customLevel;
         public int level { get; set; }
         Snake snake = new Snake(1, 1);
+
         public void StartGame()
         {
-            
+
             snake.SnakeTail = Snake.InitializeSnake(2, this.level);
             this.points = 20;
             this.GameOver = false;
             this.currentKey = ConsoleKey.Delete;
             this.speed = 300;
-            GenerateFood();
 
-            // Get the best score for the current level
-            
-
-            if(level != 5)
+            // Checking if the level is normal or custom.
+            if (this.level < 5)
             {
+                // Get the best score for the current level
                 this.bestScore = int.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt"));
-            }
-
-            while (this.GameOver == false)
-            {
-                if (Console.KeyAvailable)
+                GenerateFood();
+                while (this.GameOver == false)
                 {
-                    this.currentKey = Console.ReadKey(true).Key;
-
-                    if (this.lastKey == this.currentKey)
+                    if (Console.KeyAvailable)
                     {
-                        if (this.speed > 100)
-                        {
-                            this.speed -= 40;
-                        }
-                        else if (this.speed > 30)
-                        {
-                            this.speed -= 10;
-                        }
+                        this.currentKey = Console.ReadKey(true).Key;
 
-                        continue;
+                        if (this.lastKey == this.currentKey)
+                        {
+                            if (this.speed > 100)
+                            {
+                                this.speed -= 40;
+                            }
+                            else if (this.speed > 30)
+                            {
+                                this.speed -= 10;
+                            }
+
+                            continue;
+                        }
+                        this.speed = 300;
                     }
-                    this.speed = 300;
 
-
-                }
-
-                Console.Clear();
-                if(this.level == 5)
-                {
-                    Environment.DrawCustomArea(this.customLevel);
-                }
-                else
-                {
+                    // Drawing and updating
+                    Console.Clear();
                     Environment.DrawArea(this.level);
-                }
-                
-                DrawSpeed();
-                DrawPoints();
-                Environment.DrawFood(this.foodPositionX, this.foodPositionY);
-                currentKey = snake.Update(currentKey, lastDirectionKey);
-                snake.Draw();
-                if (snake.CollisionWithSnake())
-                {
-                    this.GameOver = true;
-                    break;
-                }
-                if(this.level == 5)
-                {
-                    if (snake.CollisionWithCustomWall(this.customLevel))
+                    DrawSpeed();
+                    DrawPoints();
+                    Environment.DrawFood(this.foodPositionX, this.foodPositionY);
+                    currentKey = snake.Update(currentKey, lastDirectionKey);
+                    snake.Draw();
+                    if (snake.CollisionWithSnake())
                     {
                         this.GameOver = true;
                         break;
                     }
-                }
-                else
-                {
                     if (snake.CollisionWithWall(this.level))
                     {
                         this.GameOver = true;
                         break;
                     }
+                    if (snake.CollisionWithFood(this.foodPositionX, this.foodPositionY))
+                    {
+                        this.points += 10;
+                        GenerateFood();
+                    }
+                    snake.DrawLength();
+                    Thread.Sleep(this.speed);
+                    this.lastKey = this.currentKey;
+                    lastDirectionKey = currentKey;
                 }
-                if (snake.CollisionWithFood(this.foodPositionX, this.foodPositionY))
-                {
-                    this.points += 10;
-                    GenerateFood();
-                }
-                snake.DrawLength();
 
-                
-                Thread.Sleep(this.speed);
-                this.lastKey = this.currentKey;
-                lastDirectionKey = currentKey;
-            }
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(51, 10);
-            Console.Write("Game Over!");
-            if (points > bestScore)
-            {
-                File.WriteAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt", points.ToString());
-                Console.SetCursorPosition(51, 11);
-                Console.Write("New record: " + points);
+                // Game Over!
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(51, 10);
+                Console.Write("Game Over!");
+                if (points > bestScore)
+                {
+                    File.WriteAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt", points.ToString());
+                    Console.SetCursorPosition(51, 11);
+                    Console.Write("New record: " + points);
+                }
+                else
+                {
+                    Console.SetCursorPosition(51, 11);
+                    Console.Write("Current score: " + points);
+                    Console.SetCursorPosition(51, 12);
+                    Console.Write("Best score: " + bestScore);
+                }
+                Thread.Sleep(3000);
             }
             else
             {
-                Console.SetCursorPosition(51, 11);
-                Console.Write("Current score: " + points);
-                Console.SetCursorPosition(51, 12);
-                Console.Write("Best score: " + bestScore);
+                GenerateFoodCustomLevel();
+
+                while (this.GameOver == false)
+                {
+                    if (Console.KeyAvailable)
+                    {
+                        this.currentKey = Console.ReadKey(true).Key;
+
+                        if (this.lastKey == this.currentKey)
+                        {
+                            if (this.speed > 100)
+                            {
+                                this.speed -= 40;
+                            }
+                            else if (this.speed > 30)
+                            {
+                                this.speed -= 10;
+                            }
+
+                            continue;
+                        }
+                        this.speed = 300;
+
+
+                    }
+                    // Drawing and updating
+                    Console.Clear();
+                    Environment.DrawCustomArea(this.customLevel);
+                    DrawSpeed();
+                    DrawPoints();
+                    Environment.DrawFood(this.foodPositionX, this.foodPositionY);
+                    currentKey = snake.Update(currentKey, lastDirectionKey);
+                    snake.Draw();
+
+                    if (snake.CollisionWithSnake())
+                    {
+                        this.GameOver = true;
+                        break;
+                    }
+                    if (snake.CollisionWithCustomWall(this.customLevel))
+                    {
+                        this.GameOver = true;
+                        break;
+                    }
+                    if (snake.CollisionWithFood(this.foodPositionX, this.foodPositionY))
+                    {
+                        this.points += 10;
+                        GenerateFoodCustomLevel();
+                    }
+                    snake.DrawLength();
+                    Thread.Sleep(this.speed);
+                    this.lastKey = this.currentKey;
+                    lastDirectionKey = currentKey;
+                }
             }
-            Thread.Sleep(3000);
+
         }
 
-        public void GenerateFoodCustomLevel()
+        private void GenerateFoodCustomLevel()
         {
             bool foodIsInsideTheSnake = false;
+            bool inWall = false;
 
-                    do
+            do
+            {
+                foodIsInsideTheSnake = false;
+                inWall = false;
+
+                this.foodPositionX = this.randFoodPosition.Next(36, 85);
+                this.foodPositionY = this.randFoodPosition.Next(7, 19);
+
+                foreach (var snakeTail in snake.SnakeTail)
+                {
+                    if (snakeTail.PositionX == this.foodPositionX && snakeTail.PositionY == this.foodPositionY)
                     {
-                        foodIsInsideTheSnake = false;
-                        this.foodPositionX = this.randFoodPosition.Next(31, 90);
-                        this.foodPositionY = this.randFoodPosition.Next(3, 23);
-
-                        foreach (var snakeTail in snake.SnakeTail)
-                        {
-                            if (snakeTail.PositionX == this.foodPositionX && snakeTail.PositionY == this.foodPositionY)
-                            {
-                                foodIsInsideTheSnake = true;
-                            }
-                        }
+                        foodIsInsideTheSnake = true;
+                        break;
                     }
-                    while (foodIsInsideTheSnake == false);
-            }
+                }
 
-        public void GenerateFood()
+                foreach (var wall in this.customLevel)
+                {
+                    if (wall.First().Key == foodPositionX && wall.First().Value == foodPositionY)
+                    {
+                        inWall = true;
+                        break;
+                    }
+                }
+            }
+            while (foodIsInsideTheSnake == true || inWall == true);
+        }
+
+        private void GenerateFood()
         {
             bool foodIsInsideTheSnake = false;
             switch (this.level)
@@ -190,8 +240,8 @@ namespace Snake
                             }
                         }
                     }
-                    while (foodIsInsideTheSnake == false);
-                    
+                    while (foodIsInsideTheSnake == true);
+
                     break;
                 case 2:
                     bool foodIsInsideTheTunnel = false;
@@ -219,7 +269,7 @@ namespace Snake
                         }
                     }
                     while (foodIsInsideTheSnake == true && foodIsInsideTheTunnel == false);
-                        
+
                     break;
                 case 3:
                     do
@@ -237,7 +287,7 @@ namespace Snake
                         }
                     }
                     while (foodIsInsideTheSnake == true);
-                    
+
                     break;
 
                 case 4:
@@ -289,21 +339,21 @@ namespace Snake
                     Console.WriteLine("Please enter a number in range 1 - 10");
                 }
                 switch (this.level)
-                    {
-                        case 1:
-                            Environment.DrawArea(this.level);
-                            StartGame();
-                            break;
-                        case 2:
-                            Console.Clear();
-                            Environment.DrawArea(this.level);
-                            StartGame();
-                            break;
-                        case 3:
-                            Console.Clear();
-                            Environment.DrawArea(this.level);
-                            StartGame();
-                            break;
+                {
+                    case 1:
+                        Environment.DrawArea(this.level);
+                        StartGame();
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Environment.DrawArea(this.level);
+                        StartGame();
+                        break;
+                    case 3:
+                        Console.Clear();
+                        Environment.DrawArea(this.level);
+                        StartGame();
+                        break;
                     case 4:
                         Console.Clear();
                         Environment.DrawArea(this.level);
@@ -336,14 +386,14 @@ namespace Snake
                         break;
                     case 10:
                         return;
-                        default:
+                    default:
                         Console.WriteLine("Please enter a number in range 1 - 10");
                         break;
-                    }
+                }
             }
         }
 
-        public void DrawPoints()
+        private void DrawPoints()
         {
             Console.SetCursorPosition(100, 1);
             Console.Write("Points: {0}", this.points);
@@ -426,9 +476,9 @@ namespace Snake
             Console.WriteLine("2. Edit level");
             Console.WriteLine("3. Delete level");
             int command = int.Parse(Console.ReadLine());
-            
-            
-            if(command == 1)
+
+
+            if (command == 1)
             {
                 Console.Write("New level name: ");
                 string levelName = Console.ReadLine();
@@ -436,13 +486,13 @@ namespace Snake
                 File.CreateText(Directory.GetCurrentDirectory() + @"\levels\" + levelName + ".txt").Close();
                 StartLevelEditor(levelName);
             }
-            else if(command == 2)
+            else if (command == 2)
             {
                 Console.Write("Enter the name of the level you want to edit: ");
                 string levelName = Console.ReadLine();
                 StartLevelEditor(levelName);
             }
-            
+
             Console.WriteLine("Controls: ");
             Console.WriteLine("Use arrows to navigate");
             Console.WriteLine("Use enter to place a wall");
@@ -465,7 +515,7 @@ namespace Snake
             {
                 editKey = UpdateLevelEditorCursor();
 
-                if(editKey == ConsoleKey.Enter)
+                if (editKey == ConsoleKey.Enter)
                 {
                     Console.Write("#");
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -479,17 +529,17 @@ namespace Snake
                     UpdateCustomLevel(fileName);
 
                 }
-                else if(editKey == ConsoleKey.Delete)
+                else if (editKey == ConsoleKey.Delete)
                 {
                     for (int i = 0; i < this.customLevel.Count; i++)
                     {
-                        if(this.customLevel[i].First().Key == this.positionX && this.customLevel[i].First().Value == this.positionY)
+                        if (this.customLevel[i].First().Key == this.positionX && this.customLevel[i].First().Value == this.positionY)
                         {
                             this.customLevel.RemoveAt(i);
                             File.WriteAllText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt", string.Empty);
                             for (int j = 0; j < this.customLevel.Count; j++)
                             {
-                                using(StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt"))
+                                using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt"))
                                 {
                                     sw.WriteLine(this.customLevel[j].First().Key);
                                     sw.WriteLine(this.customLevel[j].First().Value);
