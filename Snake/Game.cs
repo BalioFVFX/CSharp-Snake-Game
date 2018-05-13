@@ -250,6 +250,7 @@ namespace Snake
                         this.foodPositionX = this.randFoodPosition.Next(31, 90);
                         this.foodPositionY = this.randFoodPosition.Next(3, 23);
                         foodIsInsideTheSnake = false;
+                        foodIsInsideTheTunnel = false;
 
                         foreach (var snakeTail in snake.SnakeTail)
                         {
@@ -259,16 +260,16 @@ namespace Snake
                             }
                         }
 
-                        if (this.foodPositionX < 50 || this.foodPositionX > 70 && this.foodPositionY != 10)
+                        if (this.foodPositionX >= 50 && this.foodPositionX <= 70 && this.foodPositionY == 10)
                         {
-                            foodIsInsideTheTunnel = false;
+                            foodIsInsideTheTunnel = true;
                         }
-                        else if (this.foodPositionX < 50 || this.foodPositionX > 70 && this.foodPositionY != 15)
+                        else if (this.foodPositionX >= 50 && this.foodPositionX <= 70 && this.foodPositionY == 15)
                         {
-                            foodIsInsideTheTunnel = false;
+                            foodIsInsideTheTunnel = true;
                         }
                     }
-                    while (foodIsInsideTheSnake == true && foodIsInsideTheTunnel == false);
+                    while (foodIsInsideTheSnake == true || foodIsInsideTheTunnel == true);
 
                     break;
                 case 3:
