@@ -50,8 +50,12 @@ namespace Snake
             GenerateFood();
 
             // Get the best score for the current level
-            this.bestScore = int.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt"));
+            
 
+            if(level != 5)
+            {
+                this.bestScore = int.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt"));
+            }
 
             while (this.GameOver == false)
             {
@@ -78,7 +82,15 @@ namespace Snake
                 }
 
                 Console.Clear();
-                Environment.DrawArea(this.level);
+                if(this.level == 5)
+                {
+                    Environment.DrawCustomArea(this.customLevel);
+                }
+                else
+                {
+                    Environment.DrawArea(this.level);
+                }
+                
                 DrawSpeed();
                 DrawPoints();
                 Environment.DrawFood(this.foodPositionX, this.foodPositionY);
@@ -226,13 +238,14 @@ namespace Snake
             Console.WriteLine("2 - Tunnel");
             Console.WriteLine("3 - Classic small");
             Console.WriteLine("4 - Test level");
-            Console.WriteLine("5 - Level editor");
-            Console.WriteLine("6 - Snake color");
-            Console.WriteLine("7 - Environment color");
-            Console.WriteLine("8 - Scores");
-            Console.WriteLine("9 - Exit the game");
+            Console.WriteLine("5 - Custom levels");
+            Console.WriteLine("6 - Level editor");
+            Console.WriteLine("7 - Snake color");
+            Console.WriteLine("8 - Environment color");
+            Console.WriteLine("9 - Scores");
+            Console.WriteLine("10 - Exit the game");
             this.level = 0;
-            while (this.level <= 0 || this.level >= 10)
+            while (this.level <= 0 || this.level >= 11)
             {
                 try
                 {
@@ -240,7 +253,7 @@ namespace Snake
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a number in range 1 - 9");
+                    Console.WriteLine("Please enter a number in range 1 - 10");
                 }
                 switch (this.level)
                     {
@@ -265,28 +278,33 @@ namespace Snake
                         break;
                     case 5:
                         Console.Clear();
-                        StartLevelEditorMenu();
-                        Menu();
+                        UpdateCustomLevel("Test");
+                        Environment.DrawCustomArea(this.customLevel);
                         break;
                     case 6:
                         Console.Clear();
-                        snake.SetColor();
+                        StartLevelEditorMenu();
                         Menu();
                         break;
                     case 7:
                         Console.Clear();
-                        Environment.SetColor();
+                        snake.SetColor();
                         Menu();
                         break;
                     case 8:
                         Console.Clear();
-                        DrawScores();
+                        Environment.SetColor();
                         Menu();
                         break;
                     case 9:
+                        Console.Clear();
+                        DrawScores();
+                        Menu();
+                        break;
+                    case 10:
                         return;
                         default:
-                        Console.WriteLine("Please enter a number in range 1 - 9");
+                        Console.WriteLine("Please enter a number in range 1 - 10");
                         break;
                     }
             }
@@ -296,6 +314,16 @@ namespace Snake
         {
             Console.SetCursorPosition(100, 1);
             Console.Write("Points: {0}", this.points);
+        }
+
+        private void DrawLevels()
+        {
+            string[] levels = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\levels", "*.txt").Select(Path.GetFileName).ToArray();
+
+            for (int i = 0; i < levels.Length; i++)
+            {
+                Console.WriteLine(levels[i].Substring(0, levels[i].Length - 4));
+            }
         }
 
         private void DrawSpeed()
@@ -394,7 +422,7 @@ namespace Snake
             Console.CursorVisible = true;
             Console.Clear();
             this.customLevel.RemoveRange(0, this.customLevel.Count);
-            DrawLevel(fileName);
+            DrawCustomLevel(fileName);
             while (true)
             {
                 editKey = UpdateLevelEditorCursor();
@@ -426,7 +454,7 @@ namespace Snake
                                     sw.WriteLine(this.customLevel[j].First().Value);
                                 }
                             }
-                            DrawLevel(fileName);
+                            DrawCustomLevel(fileName);
                             break;
                         }
                     }
@@ -435,7 +463,7 @@ namespace Snake
             }
         }
 
-        private void DrawLevel(string fileName)
+        private void DrawCustomLevel(string fileName)
         {
             Console.Clear();
 

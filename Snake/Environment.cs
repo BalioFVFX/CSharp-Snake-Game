@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Snake
@@ -8,12 +9,24 @@ namespace Snake
     {
 
         private static ConsoleColor Color = ConsoleColor.White;
+        public static List<Dictionary<int, int>> customLevel;
 
         public static void DrawFood(int x, int y)
         {
             Console.SetCursorPosition(x, y);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("*");
+        }
+
+        public static void DrawCustomArea(List<Dictionary<int, int>> customLevel)
+        {
+            Console.Clear();
+
+            for (int i = 0; i < customLevel.Count; i++)
+            {
+                Console.SetCursorPosition(customLevel[i].First().Key, customLevel[i].First().Value);
+                Console.Write("#");
+            }
         }
 
         public static void DrawArea(int level)
@@ -165,6 +178,9 @@ namespace Snake
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.SetCursorPosition(100, 27);
                     Console.Write("By: BalioFVFX");
+                    break;
+                case 5:
+
                     break;
                 default:
                     break;
