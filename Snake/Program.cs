@@ -16,7 +16,7 @@ namespace Snake
 
             game.Menu();
 
-            while (game.level != 10)
+            while (game.level != 7)
             {
                 if(game.GameOver == false)
                 {

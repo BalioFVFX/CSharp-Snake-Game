@@ -275,24 +275,14 @@ namespace Snake
         public static List<Snake> InitializeSnake(int snakeLength, int level)
         {
             List<Snake> snakeTail = new List<Snake>();
-            if (level < 3)
-            {
-                for (int i = 0; i < snakeLength; i++)
-                {
-                    Snake snake = new Snake(31 + i, 3);
-                    snakeTail.Add(snake);
-                }
-            }
-            else
-            {
+
+           
                 for (int i = 0; i < snakeLength; i++)
                 {
                     Snake snake = new Snake(42 + i, 6);
                     snakeTail.Add(snake);
                 }
-            }
-
-
+   
             return snakeTail;
         }
 

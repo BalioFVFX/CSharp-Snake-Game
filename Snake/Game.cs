@@ -49,85 +49,8 @@ namespace Snake
             this.currentKey = ConsoleKey.Delete;
             this.speed = 300;
 
-            // Checking if the level is normal or custom.
-            if (this.level < 5)
-            {
-                // Get the best score for the current level
-                this.bestScore = int.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt"));
-                GenerateFood();
-                while (this.GameOver == false)
-                {
-                    if (Console.KeyAvailable)
-                    {
-                        this.currentKey = Console.ReadKey(true).Key;
-
-                        if (this.lastKey == this.currentKey)
-                        {
-                            if (this.speed > 100)
-                            {
-                                this.speed -= 40;
-                            }
-                            else if (this.speed > 30)
-                            {
-                                this.speed -= 10;
-                            }
-
-                            continue;
-                        }
-                        this.speed = 300;
-                    }
-
-                    // Drawing and updating
-                    Console.Clear();
-                    Environment.DrawArea(this.level);
-                    DrawSpeed();
-                    DrawPoints();
-                    Environment.DrawFood(this.foodPositionX, this.foodPositionY);
-                    currentKey = snake.Update(currentKey, lastDirectionKey);
-                    snake.Draw();
-                    if (snake.CollisionWithSnake())
-                    {
-                        this.GameOver = true;
-                        break;
-                    }
-                    if (snake.CollisionWithWall(this.level))
-                    {
-                        this.GameOver = true;
-                        break;
-                    }
-                    if (snake.CollisionWithFood(this.foodPositionX, this.foodPositionY))
-                    {
-                        this.points += 10;
-                        GenerateFood();
-                    }
-                    snake.DrawLength();
-                    Thread.Sleep(this.speed);
-                    this.lastKey = this.currentKey;
-                    lastDirectionKey = currentKey;
-                }
-
-                // Game Over!
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.SetCursorPosition(51, 10);
-                Console.Write("Game Over!");
-                if (points > bestScore)
-                {
-                    File.WriteAllText(Directory.GetCurrentDirectory() + @"\level" + this.level + ".txt", points.ToString());
-                    Console.SetCursorPosition(51, 11);
-                    Console.Write("New record: " + points);
-                }
-                else
-                {
-                    Console.SetCursorPosition(51, 11);
-                    Console.Write("Current score: " + points);
-                    Console.SetCursorPosition(51, 12);
-                    Console.Write("Best score: " + bestScore);
-                }
-                Thread.Sleep(3000);
-            }
-            else
-            {
+            
+          
                 GenerateFoodCustomLevel();
 
                 while (this.GameOver == false)
@@ -182,7 +105,7 @@ namespace Snake
                     this.lastKey = this.currentKey;
                     lastDirectionKey = currentKey;
                 }
-            }
+            
 
         }
 
@@ -319,17 +242,14 @@ namespace Snake
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Please enter level number");
             Console.WriteLine("1 - Classic");
-            Console.WriteLine("2 - Tunnel");
-            Console.WriteLine("3 - Classic small");
-            Console.WriteLine("4 - Test level");
-            Console.WriteLine("5 - Custom levels");
-            Console.WriteLine("6 - Level editor");
-            Console.WriteLine("7 - Snake color");
-            Console.WriteLine("8 - Environment color");
-            Console.WriteLine("9 - Scores");
-            Console.WriteLine("10 - Exit the game");
+            Console.WriteLine("2 - Custom levels");
+            Console.WriteLine("3 - Level editor");
+            Console.WriteLine("4 - Snake color");
+            Console.WriteLine("5 - Environment color");
+            Console.WriteLine("6 - Scores");
+            Console.WriteLine("7 - Exit the game");
             this.level = 0;
-            while (this.level <= 0 || this.level >= 11)
+            while (this.level <= 0 || this.level > 7)
             {
                 try
                 {
@@ -337,7 +257,7 @@ namespace Snake
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a number in range 1 - 10");
+                    Console.WriteLine("Please enter a number in range 1 - 7");
                 }
                 switch (this.level)
                 {
@@ -347,49 +267,34 @@ namespace Snake
                         break;
                     case 2:
                         Console.Clear();
-                        Environment.DrawArea(this.level);
-                        StartGame();
-                        break;
-                    case 3:
-                        Console.Clear();
-                        Environment.DrawArea(this.level);
-                        StartGame();
-                        break;
-                    case 4:
-                        Console.Clear();
-                        Environment.DrawArea(this.level);
-                        StartGame();
-                        break;
-                    case 5:
-                        Console.Clear();
                         Console.Write("Level name: ");
                         UpdateCustomLevel(Console.ReadLine());
                         Environment.DrawCustomArea(this.customLevel);
                         break;
-                    case 6:
+                    case 3:
                         Console.Clear();
                         StartLevelEditorMenu();
                         Menu();
                         break;
-                    case 7:
+                    case 4:
                         Console.Clear();
                         snake.SetColor();
                         Menu();
                         break;
-                    case 8:
+                    case 5:
                         Console.Clear();
                         Environment.SetColor();
                         Menu();
                         break;
-                    case 9:
+                    case 6:
                         Console.Clear();
                         DrawScores();
                         Menu();
                         break;
-                    case 10:
+                    case 7:
                         return;
                     default:
-                        Console.WriteLine("Please enter a number in range 1 - 10");
+                        Console.WriteLine("Please enter a number in range 1 - 7");
                         break;
                 }
             }
