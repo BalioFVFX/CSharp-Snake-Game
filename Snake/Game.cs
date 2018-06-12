@@ -238,6 +238,7 @@ namespace Snake
 
         public void Menu()
         {
+            this.GameOver = false;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Please enter level number");
@@ -249,7 +250,7 @@ namespace Snake
             Console.WriteLine("6 - Scores");
             Console.WriteLine("7 - Exit the game");
             this.level = 0;
-            while (this.level <= 0 || this.level > 7)
+            while (this.level <= 0 || this.level >= 7)
             {
                 try
                 {
@@ -262,11 +263,12 @@ namespace Snake
                 switch (this.level)
                 {
                     case 1:
-                        Environment.DrawArea(this.level);
-                        StartGame();
+                        UpdateCustomLevel("level1");
+                        Environment.DrawCustomArea(this.customLevel);
                         break;
                     case 2:
                         Console.Clear();
+                        PrintCustomLevels();
                         Console.Write("Level name: ");
                         UpdateCustomLevel(Console.ReadLine());
                         Environment.DrawCustomArea(this.customLevel);
@@ -519,6 +521,16 @@ namespace Snake
 
             Console.SetCursorPosition(positionX, positionY);
             return editKey;
+        }
+
+        private void PrintCustomLevels()
+        {
+            string[] levelNames = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\levels\", "*.txt").Select(Path.GetFileName).ToArray();
+            Console.WriteLine("Levels:");
+            for (int i = 0; i < levelNames.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {levelNames[i].Substring(0, levelNames[i].Length - 4)}");
+            }
         }
     }
 }

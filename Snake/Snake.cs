@@ -268,6 +268,15 @@ namespace Snake
                 {
                     return true;
                 }
+                if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 35 ||
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 5 ||
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 85 ||
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 20 ||
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 85 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 10 ||
+            this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 50 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 15)
+                {
+                    return true;
+                }
             }
             return false;
         }
