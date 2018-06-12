@@ -362,7 +362,8 @@ namespace Snake
                         break;
                     case 5:
                         Console.Clear();
-                        UpdateCustomLevel("Test");
+                        Console.Write("Level name: ");
+                        UpdateCustomLevel(Console.ReadLine());
                         Environment.DrawCustomArea(this.customLevel);
                         break;
                     case 6:
