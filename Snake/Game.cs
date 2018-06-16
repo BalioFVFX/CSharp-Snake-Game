@@ -454,6 +454,7 @@ namespace Snake
             Console.ForegroundColor = ConsoleColor.Red;
             Environment.DrawMArea();
             Console.ForegroundColor = ConsoleColor.White;
+            Environment.DrawInstructions();
 
             while (true)
             {
@@ -465,6 +466,8 @@ namespace Snake
                     Console.ForegroundColor = ConsoleColor.Red;
                     Environment.DrawMArea();
                     Console.ForegroundColor = ConsoleColor.White;
+                    Environment.DrawInstructions();
+
                     using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt"))
                     {
                         sw.WriteLine(positionX);
@@ -497,6 +500,7 @@ namespace Snake
                     Console.ForegroundColor = ConsoleColor.Red;
                     Environment.DrawMArea();
                     Console.ForegroundColor = ConsoleColor.White;
+                    Environment.DrawInstructions();
                 }
 
             }

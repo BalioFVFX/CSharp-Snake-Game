@@ -17,6 +17,16 @@ namespace Snake
             Console.Write("*");
         }
 
+        public static void DrawInstructions()
+        {
+            Console.SetCursorPosition(85, 23);
+            Console.Write("Use the arrows to navigate.");
+            Console.SetCursorPosition(85, 24);
+            Console.Write("Press enter to place a block.");
+            Console.SetCursorPosition(85, 25);
+            Console.Write("Press delete to delete a block.");
+        }
+
 
         public static void DrawMArea()
         {
@@ -50,14 +60,6 @@ namespace Snake
                 Console.Write("#");
             }
 
-            // Instructions
-
-            Console.SetCursorPosition(85, 23);
-            Console.Write("Use the arrows to navigate.");
-            Console.SetCursorPosition(85, 24);
-            Console.Write("Press enter to place a block.");
-            Console.SetCursorPosition(85, 25);
-            Console.Write("Press delete to delete a block.");
         }
         public static void DrawCustomArea(List<Dictionary<int, int>> customLevel)
         {
