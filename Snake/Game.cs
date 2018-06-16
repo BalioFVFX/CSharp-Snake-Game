@@ -403,10 +403,26 @@ namespace Snake
 
         private void DrawScores()
         {
-            Console.WriteLine("Classic - " + File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + 1 + ".txt"));
-            Console.WriteLine("Tunnel - " + File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + 2 + ".txt"));
-            Console.WriteLine("Classic small - " + File.ReadAllText(Directory.GetCurrentDirectory() + @"\level" + 3 + ".txt"));
+            Console.CursorVisible = true;
+            string[] levelScores = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\levels\", "*.txt").Select(Path.GetFileName).ToArray();
+
+            Console.WriteLine("Levels:");
+            for (int i = 0; i < levelScores.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {levelScores[i].Substring(0, levelScores[i].Length - 4)}");
+            }
+
+            Console.Write("Please enter a level name: ");
+            string levelNameInput = Console.ReadLine();
+
+            int currentBestScore = int.Parse(File.ReadLines(Directory.GetCurrentDirectory() + @"\scores\" + levelNameInput + "Score" + ".txt").First());
+
+            Console.Clear();
+            Console.WriteLine($"Level name: {levelNameInput} | Best score: {currentBestScore}");
+            Console.WriteLine("Press any key to exit");
+
             Console.ReadKey();
+            Console.CursorVisible = false;
         }
 
         private void StartLevelEditorMenu()
