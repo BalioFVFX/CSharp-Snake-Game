@@ -219,21 +219,6 @@ namespace Snake
             return false;
         }
 
-        public bool CollisionWithWall(int level)
-        {
-                    if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 30 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 2 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 90 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 24 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 50 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 10 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 50 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 15)
-                    {
-                        return true;
-                    }
-
-            return false;
-        }
-
         public bool CollisionWithCustomWall(List<Dictionary<int, int>> customLevel)
         {
             foreach (var wall in customLevel)
