@@ -22,6 +22,7 @@ namespace Snake
             this.positionX = 0;
             this.positionY = 0;
             this.customLevel = new List<Dictionary<int, int>>();
+            this.currentCustomLevelName = "";
         }
 
         public bool GameOver { get; set; }
@@ -36,6 +37,7 @@ namespace Snake
         private int bestScore;
         private int positionX;
         private int positionY;
+        private string currentCustomLevelName;
         private List<Dictionary<int, int>> customLevel;
         public int level { get; set; }
         Snake snake = new Snake(1, 1);
@@ -106,6 +108,24 @@ namespace Snake
                     lastDirectionKey = currentKey;
                 }
             
+                this.bestScore = int.Parse(File.ReadLines(Directory.GetCurrentDirectory() + @"\scores\" + currentCustomLevelName + "Score" + ".txt").First());
+
+            Console.Clear();
+            if (this.points > this.bestScore)
+            {
+                File.WriteAllText(Directory.GetCurrentDirectory() + @"\scores\" + this.currentCustomLevelName + "Score" + ".txt", this.points.ToString());
+                Console.WriteLine($"New record: {points}");
+                Console.WriteLine($"Previus best score: {bestScore}");
+            }
+            else
+            {
+                Console.WriteLine($"Current score: {points}");
+                Console.WriteLine($"Best score score: {bestScore}");
+            }
+
+            
+            
+            Thread.Sleep(2500);
 
         }
 
@@ -263,6 +283,7 @@ namespace Snake
                 switch (this.level)
                 {
                     case 1:
+                        this.currentCustomLevelName = "level1";
                         UpdateCustomLevel("level1");
                         Environment.DrawCustomArea(this.customLevel);
                         break;
@@ -270,7 +291,8 @@ namespace Snake
                         Console.Clear();
                         PrintCustomLevels();
                         Console.Write("Level name: ");
-                        UpdateCustomLevel(Console.ReadLine());
+                        this.currentCustomLevelName = Console.ReadLine();
+                        UpdateCustomLevel(this.currentCustomLevelName);
                         Environment.DrawCustomArea(this.customLevel);
                         break;
                     case 3:
@@ -393,6 +415,9 @@ namespace Snake
                 string levelName = Console.ReadLine();
 
                 File.CreateText(Directory.GetCurrentDirectory() + @"\levels\" + levelName + ".txt").Close();
+                //Scores
+               
+                File.WriteAllText(Directory.GetCurrentDirectory() + @"\scores\" + levelName + "Score" + ".txt", "20");
                 StartLevelEditor(levelName);
             }
             else if (command == 2)
