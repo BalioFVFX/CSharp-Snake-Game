@@ -80,14 +80,17 @@ namespace Snake
                     }
                     // Drawing and updating
                     Console.Clear();
-                    Environment.DrawCustomArea(this.customLevel);
-                    DrawSpeed();
-                    DrawPoints();
-                    Environment.DrawFood(this.foodPositionX, this.foodPositionY);
-                    currentKey = snake.Update(currentKey, lastDirectionKey);
-                    snake.Draw();
 
-                    if (snake.CollisionWithSnake())
+
+                Environment.DrawCustomArea(this.customLevel);
+                DrawSpeed();
+                DrawPoints();
+                Environment.DrawFood(this.foodPositionX, this.foodPositionY);
+                currentKey = snake.Update(currentKey, lastDirectionKey);
+                snake.Draw();
+                snake.DrawLength();
+
+                if (snake.CollisionWithSnake())
                     {
                         this.GameOver = true;
                         break;
@@ -102,15 +105,22 @@ namespace Snake
                         this.points += 10;
                         GenerateFoodCustomLevel();
                     }
-                    snake.DrawLength();
-                    Thread.Sleep(this.speed);
+
+
+
+                
+                
+                Thread.Sleep(this.speed);
                     this.lastKey = this.currentKey;
                     lastDirectionKey = currentKey;
-                }
+
+               
+            }
             
                 this.bestScore = int.Parse(File.ReadLines(Directory.GetCurrentDirectory() + @"\scores\" + currentCustomLevelName + "Score" + ".txt").First());
 
             Console.Clear();
+
             if (this.points > this.bestScore)
             {
                 File.WriteAllText(Directory.GetCurrentDirectory() + @"\scores\" + this.currentCustomLevelName + "Score" + ".txt", this.points.ToString());

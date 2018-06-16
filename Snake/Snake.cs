@@ -221,18 +221,6 @@ namespace Snake
 
         public bool CollisionWithWall(int level)
         {
-            switch (level)
-            {
-                case 1:
-                    if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 30 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 2 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 90 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 24)
-                    {
-                        return true;
-                    }
-                    break;
-                case 2:
                     if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 30 ||
                     this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 2 ||
                     this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 90 ||
@@ -242,19 +230,6 @@ namespace Snake
                     {
                         return true;
                     }
-                    break;
-                case 3:
-                    if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 41 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 5 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 77 ||
-                    this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 20)
-                    {
-                        return true;
-                    }
-                    break;
-                default:
-                    break;
-            }
 
             return false;
         }
@@ -268,15 +243,20 @@ namespace Snake
                 {
                     return true;
                 }
-                if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 35 ||
+            }
+
+            if (this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 35 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 85 && 
                 this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 5 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 85 ||
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 35 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 85 &&
                 this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 20 ||
-                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 85 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 10 ||
-            this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 50 && this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 70 && this.SnakeTail[this.SnakeTail.Count - 1].PositionY == 15)
-                {
-                    return true;
-                }
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionX <= 35 &&
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 6 &&
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 19 ||
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionX >= 85 &&
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionY >= 6 &&
+                this.SnakeTail[this.SnakeTail.Count - 1].PositionY <= 19)
+            {
+                return true;
             }
             return false;
         }
