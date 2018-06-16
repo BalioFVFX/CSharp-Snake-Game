@@ -502,6 +502,11 @@ namespace Snake
                     Console.ForegroundColor = ConsoleColor.White;
                     Environment.DrawInstructions();
                 }
+                else if(editKey == ConsoleKey.Escape)
+                {
+                    Console.CursorVisible = false;
+                    break;
+                }
 
             }
         }
