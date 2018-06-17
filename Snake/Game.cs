@@ -404,6 +404,7 @@ namespace Snake
         private void DrawScores()
         {
             Console.CursorVisible = true;
+
             string[] levelScores = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\levels\", "*.txt").Select(Path.GetFileName).ToArray();
 
             Console.WriteLine("Levels:");
@@ -413,16 +414,42 @@ namespace Snake
             }
 
             Console.Write("Please enter a level name: ");
-            string levelNameInput = Console.ReadLine();
 
-            int currentBestScore = int.Parse(File.ReadLines(Directory.GetCurrentDirectory() + @"\scores\" + levelNameInput + "Score" + ".txt").First());
+            while (true)
+            {
 
-            Console.Clear();
-            Console.WriteLine($"Level name: {levelNameInput} | Best score: {currentBestScore}");
-            Console.WriteLine("Press any key to exit");
+                string levelNameInput = Console.ReadLine();
 
-            Console.ReadKey();
-            Console.CursorVisible = false;
+                try
+                {
+
+
+                    int currentBestScore = int.Parse(File.ReadLines(Directory.GetCurrentDirectory() + @"\scores\" + levelNameInput + "Score" + ".txt").First());
+
+                    Console.Clear();
+                    Console.WriteLine($"Level name: {levelNameInput} | Best score: {currentBestScore}");
+                    Console.WriteLine("Press any key to exit");
+
+                    Console.ReadKey();
+                    Console.CursorVisible = false;
+                    break;
+                    
+                    
+                }
+                catch (Exception e)
+                {
+                    Console.Clear();
+
+                    Console.WriteLine("Levels:");
+                    for (int i = 0; i < levelScores.Length; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {levelScores[i].Substring(0, levelScores[i].Length - 4)}");
+                    }
+
+                    Console.Write("Invalid level name: ");
+                }
+            }
+            
         }
 
         private void StartLevelEditorMenu()
@@ -448,6 +475,8 @@ namespace Snake
             }
             else if (command == 2)
             {
+                Console.Clear();
+                DrawLevels();
                 Console.Write("Enter the name of the level you want to edit: ");
                 string levelName = Console.ReadLine();
                 StartLevelEditor(levelName);
@@ -559,7 +588,8 @@ namespace Snake
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    Console.Clear();
+                    DrawLevels();
                     Console.WriteLine("Invalid level name!");
                     Console.Write("Level name: ");
                     fileName = Console.ReadLine();
