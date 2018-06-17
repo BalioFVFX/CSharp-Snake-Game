@@ -278,17 +278,21 @@ namespace Snake
             Console.WriteLine("4 - Snake color");
             Console.WriteLine("5 - Environment color");
             Console.WriteLine("6 - Scores");
-            Console.WriteLine("7 - Exit the game");
+            Console.WriteLine("7 - Instructions");
+            Console.WriteLine("8 - Exit the game");
             this.level = 0;
             while (this.level <= 0 || this.level >= 7)
             {
                 try
                 {
+                    Console.CursorVisible = true;
+                    Console.Write("Enter a number: (1 - 8): ");
                     this.level = int.Parse(Console.ReadLine());
+                    Console.CursorVisible = false;
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a number in range 1 - 7");
+                    Console.WriteLine("Please enter a number in range 1 - 8");
                 }
                 switch (this.level)
                 {
@@ -326,9 +330,14 @@ namespace Snake
                         Menu();
                         break;
                     case 7:
+                        Console.Clear();
+                        DrawInstructions();
+                        Menu();
+                        break;
+                    case 8:
                         return;
                     default:
-                        Console.WriteLine("Please enter a number in range 1 - 7");
+                        Console.WriteLine("Please enter a number in range 1 - 8");
                         break;
                 }
             }
@@ -480,6 +489,17 @@ namespace Snake
                 Console.Write("Enter the name of the level you want to edit: ");
                 string levelName = Console.ReadLine();
                 StartLevelEditor(levelName);
+            }
+            else if(command == 3)
+            {
+                Console.CursorVisible = true;
+                Console.Clear();
+                PrintCustomLevels();
+                Console.Write("Enter the name of the level you want to delete: ");
+                string levelName = Console.ReadLine();
+                File.Delete(Directory.GetCurrentDirectory() + @"\levels\" + levelName + ".txt");
+                File.Delete(Directory.GetCurrentDirectory() + @"\scores\" + levelName + "Score" + ".txt");
+                Console.CursorVisible = false;
             }
 
             Console.WriteLine("Controls: ");
@@ -638,6 +658,19 @@ namespace Snake
             {
                 Console.WriteLine($"{i + 1}. {levelNames[i].Substring(0, levelNames[i].Length - 4)}");
             }
+        }
+
+        private void DrawInstructions()
+        {
+            Console.WriteLine("Gameplay: ");
+            Console.WriteLine("Use the arrows to navigate the snake.");
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("Leve editor: ");
+            Console.WriteLine("Use the arrows to navigate.");
+            Console.WriteLine("Press Eneter to place a block.");
+            Console.WriteLine("Press Delete to delete a block.");
+            Console.WriteLine("Press Escape to exit the level editor.");
+            Console.ReadKey();
         }
     }
 }
