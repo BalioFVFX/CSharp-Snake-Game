@@ -528,7 +528,7 @@ namespace Snake
                     Environment.DrawMArea();
                     Console.ForegroundColor = ConsoleColor.White;
                     Environment.DrawInstructions();
-
+                    Console.CursorVisible = true;
                     using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt"))
                     {
                         sw.WriteLine(positionX);
