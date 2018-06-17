@@ -305,6 +305,7 @@ namespace Snake
                         Console.Clear();
                         PrintCustomLevels();
                         Console.Write("Level name: ");
+                        Console.CursorVisible = true;
                         this.currentCustomLevelName = Console.ReadLine();
                         UpdateCustomLevel(this.currentCustomLevelName);
                         Environment.DrawCustomArea(this.customLevel);
@@ -468,8 +469,8 @@ namespace Snake
             Console.WriteLine("1. Create a new level");
             Console.WriteLine("2. Edit level");
             Console.WriteLine("3. Delete level");
+            Console.CursorVisible = true;
             int command = int.Parse(Console.ReadLine());
-
 
             if (command == 1)
             {
@@ -499,19 +500,14 @@ namespace Snake
                 string levelName = Console.ReadLine();
                 File.Delete(Directory.GetCurrentDirectory() + @"\levels\" + levelName + ".txt");
                 File.Delete(Directory.GetCurrentDirectory() + @"\scores\" + levelName + "Score" + ".txt");
-                Console.CursorVisible = false;
             }
-
-            Console.WriteLine("Controls: ");
-            Console.WriteLine("Use arrows to navigate");
-            Console.WriteLine("Use enter to place a wall");
-            Console.WriteLine("Use ESC to save and exit");
+            
         }
 
         private void StartLevelEditor(string fileName)
         {
             ConsoleKey editKey = ConsoleKey.Multiply;
-            Console.CursorVisible = true;
+            
             Console.Clear();
             this.customLevel.RemoveRange(0, this.customLevel.Count);
             DrawCustomLevel(fileName);
@@ -520,7 +516,7 @@ namespace Snake
             Environment.DrawMArea();
             Console.ForegroundColor = ConsoleColor.White;
             Environment.DrawInstructions();
-
+            Console.CursorVisible = true;
             while (true)
             {
                 editKey = UpdateLevelEditorCursor();
@@ -604,6 +600,7 @@ namespace Snake
                         currentCoordinates.Add(wallCoordinates[i], wallCoordinates[i + 1]);
                         this.customLevel.Add(currentCoordinates);
                     }
+                    Console.CursorVisible = false;
                     break;
                 }
                 catch (Exception e)

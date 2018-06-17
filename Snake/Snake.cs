@@ -135,6 +135,7 @@ namespace Snake
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("15 - Yellow");
             Console.ForegroundColor = ConsoleColor.White;
+            Console.CursorVisible = true;
             switch (int.Parse(Console.ReadLine()))
             {
                 case 1:
@@ -186,6 +187,7 @@ namespace Snake
                     Color = ConsoleColor.Gray;
                     break;
             }
+            Console.CursorVisible = false;
         }
 
         public bool CollisionWithSnake()

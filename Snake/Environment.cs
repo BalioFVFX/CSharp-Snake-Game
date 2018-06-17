@@ -32,6 +32,8 @@ namespace Snake
 
         public static void DrawMArea()
         {
+            Console.ForegroundColor = Color;
+
             // TOP
             Console.SetCursorPosition(35, 5);
             for (int i = 20; i <= 70; i++)
@@ -67,6 +69,7 @@ namespace Snake
         {
             Console.Clear();
             DrawMArea();
+            Console.ForegroundColor = Color;
             for (int i = 0; i < customLevel.Count; i++)
             {
                 Console.SetCursorPosition(customLevel[i].First().Key, customLevel[i].First().Value);
@@ -108,6 +111,7 @@ namespace Snake
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("15 - Yellow");
             Console.ForegroundColor = ConsoleColor.White;
+            Console.CursorVisible = true;
             switch (int.Parse(Console.ReadLine()))
             {
                 case 1:
@@ -159,6 +163,7 @@ namespace Snake
                     Color = ConsoleColor.Gray;
                     break;
             }
+            Console.CursorVisible = false;
         }
     }
 }
