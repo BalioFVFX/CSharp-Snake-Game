@@ -512,15 +512,13 @@ namespace Snake
             this.customLevel.RemoveRange(0, this.customLevel.Count);
             DrawCustomLevel(fileName);
 
-            Console.ForegroundColor = ConsoleColor.Red;
             Environment.DrawMArea();
-            Console.ForegroundColor = ConsoleColor.White;
             Environment.DrawInstructions();
             Console.CursorVisible = true;
             while (true)
             {
                 editKey = UpdateLevelEditorCursor();
-
+                Console.CursorVisible = true;
                 if (editKey == ConsoleKey.Enter)
                 {
                     Console.Write("#");
@@ -528,7 +526,6 @@ namespace Snake
                     Environment.DrawMArea();
                     Console.ForegroundColor = ConsoleColor.White;
                     Environment.DrawInstructions();
-                    Console.CursorVisible = true;
                     using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt"))
                     {
                         sw.WriteLine(positionX);
@@ -558,10 +555,9 @@ namespace Snake
                         }
                     }
 
-                    Console.ForegroundColor = ConsoleColor.Red;
                     Environment.DrawMArea();
-                    Console.ForegroundColor = ConsoleColor.White;
                     Environment.DrawInstructions();
+                    Console.CursorVisible = true;
                 }
                 else if(editKey == ConsoleKey.Escape)
                 {
