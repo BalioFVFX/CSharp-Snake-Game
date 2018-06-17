@@ -542,15 +542,32 @@ namespace Snake
 
         private void UpdateCustomLevel(string fileName)
         {
-            int[] wallCoordinates = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt").Select(int.Parse).ToArray();
-            this.customLevel.RemoveRange(0, this.customLevel.Count);
-            for (int i = 0; i < wallCoordinates.Length; i += 2)
+            while (true)
             {
-                Dictionary<int, int> currentCoordinates = new Dictionary<int, int>();
+                try
+                {
+                    int[] wallCoordinates = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\levels\" + fileName + ".txt").Select(int.Parse).ToArray();
+                    this.customLevel.RemoveRange(0, this.customLevel.Count);
+                    for (int i = 0; i < wallCoordinates.Length; i += 2)
+                    {
+                        Dictionary<int, int> currentCoordinates = new Dictionary<int, int>();
 
-                currentCoordinates.Add(wallCoordinates[i], wallCoordinates[i + 1]);
-                this.customLevel.Add(currentCoordinates);
+                        currentCoordinates.Add(wallCoordinates[i], wallCoordinates[i + 1]);
+                        this.customLevel.Add(currentCoordinates);
+                    }
+                    break;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Invalid level name!");
+                    Console.Write("Level name: ");
+                    fileName = Console.ReadLine();
+                }
             }
+
+            
+
 
         }
 
