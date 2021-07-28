@@ -13,7 +13,7 @@ namespace Snake
             Console.CursorVisible = false;
 
             Game game = new Game();
-
+            // SomeChanges!!!
             game.Menu();
 
             while (game.level != 8)
