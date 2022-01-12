@@ -263,5 +263,6 @@ namespace Snake
         }
 
         // sample changes
+        // sample changes
     }
 }
